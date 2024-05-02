@@ -6,8 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>پنل مدیریت</title>
-    <link rel="stylesheet" href="{{asset('css/admin.css')}}">
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{asset('/css/admin.css')}}">
 
 </head>
 <body>
@@ -15,11 +14,12 @@
 <div class="container-fluid">
     <div class="page_sidebar">
 
+        <span class="fa fa-bars" id="sidebarToggle"></span>
         <ul id="sidebar_menu">
             <li>
-                <a href="">
+                <a href="#">
                     <span class="fa fa-shopping-cart"></span>
-                    <span>محصولات</span>
+                    <span class="sidebar_menu_text">محصولات</span>
                     <span class="fa fa-angle-left"></span>
                 </a>
                 <div class="child_menu">
@@ -30,9 +30,9 @@
             </li>
 
             <li>
-                <a href="">
+                <a href="#">
                     <span class="fa fa-sliders"></span>
-                    <span>مدیریت اسلایدرها</span>
+                    <span class="sidebar_menu_text">مدیریت اسلایدرها</span>
                     <span class="fa fa-angle-left"></span>
                 </a>
                 <div class="child_menu">
@@ -44,9 +44,12 @@
 
         </ul>
     </div>
-    <div class="page_content"></div>
+    <div class="page_content">Content</div>
 </div>
 
 
+<script  src="{{asset('js/font-awesome.js')}}"></script>
+<script  src="{{asset('/js/app.js')}}"></script>
+<script  src="{{asset('/js/admin.js')}}"></script>
 </body>
 </html>

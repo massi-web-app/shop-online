@@ -1,7 +1,6 @@
 let toggle = false;
 
 $("#sidebar_menu li").click(function () {
-
     if (!$(this).hasClass("active")) {
         $("#sidebar_menu li").removeClass('active');
         $(this).addClass('active');
@@ -13,6 +12,9 @@ $("#sidebar_menu li").click(function () {
         } else {
             $(".child_menu", this).show();
         }
+    }else if(toggle){
+        $(".child_menu").slideUp();
+        $(".child_menu", this).show();
     }
 
 })
@@ -32,3 +34,27 @@ $("#sidebarToggle").click(function () {
         $(".child_menu").hide();
     }
 });
+
+
+$(window).resize(function () {
+    set_sidebar_width();
+});
+
+$(document).ready(function () {
+    set_sidebar_width();
+});
+
+function set_sidebar_width() {
+    const width = document.body.offsetWidth;
+    if (width < 850) {
+        $(".page_sidebar").addClass('toggled');
+        $(".page_content").css('margin-right', '50px');
+        $(".child_menu").hide();
+    } else {
+        if (!toggle) {
+            $(".page_sidebar").removeClass("toggled");
+            $(".page_content").css('margin-right', '240px');
+        }
+
+    }
+}

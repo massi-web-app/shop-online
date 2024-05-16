@@ -44,7 +44,11 @@
 
         </ul>
     </div>
-    <div class="page_content">Content</div>
+    <div class="page_content">
+        <div class="content_box" id="app">
+            @yield('content')
+        </div>
+    </div>
 </div>
 
 

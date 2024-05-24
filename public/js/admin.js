@@ -12,7 +12,7 @@ $("#sidebar_menu li").click(function () {
         } else {
             $(".child_menu", this).show();
         }
-    }else if(toggle){
+    } else if (toggle) {
         $(".child_menu").slideUp();
         $(".child_menu", this).show();
     }
@@ -57,4 +57,21 @@ function set_sidebar_width() {
         }
 
     }
+}
+
+
+function select_file() {
+    $("#image").click()
+}
+
+
+function loadFile(event) {
+    const file_reader = new FileReader();
+
+    file_reader.onload = function () {
+        const output = document.getElementById("output_image");
+        output.src = file_reader.result;
+    }
+
+    file_reader.readAsDataURL(event.target.files[0]);
 }

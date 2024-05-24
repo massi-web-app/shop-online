@@ -26,7 +26,7 @@ class StoreCategoryRequest extends FormRequest
         return [
             'title' => 'required',
             'search_url'=>'required_without:ename',
-
+            'image'=>'nullable|image'
         ];
     }
 
@@ -34,7 +34,8 @@ class StoreCategoryRequest extends FormRequest
     {
         return [
             'ename'=>'نام لاتین',
-            'search_url'=>'url دسته'
+            'search_url'=>'url دسته',
+            'image'=>'تصویر دسته'
         ];
     }
 }

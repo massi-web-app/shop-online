@@ -30,7 +30,7 @@ class CategoryController extends Controller
     public function store(StoreCategoryRequest $request)
     {
         $this->categoryRepository->store($request->all());
-
+        return redirect()->route('category.index')->with('message','ثبت دسته با موفقیت انجام شد.');
     }
 
     public function edit()

@@ -33,6 +33,15 @@
                 @endif
             </div>
 
+            <div class="mb-3 form-group">
+                <input type="file" name="image" id="image" style="display: none;" onchange="loadFile(event)">
+                {{ Form::label('image','تصویر دسته :',['class'=>'form-label form-label-admin'])}}
+                <img src="/files/images/pic_1.png" alt="select image" onclick="select_file()" id="output_image" width="150px">
+                @if($errors->has('image'))
+                    <span class="has_errors">{{$errors->first('image')}}</span>
+                @endif
+            </div>
+
 
             <div class="mb-3 form-group">
                 {{ Form::label('notShow','عدم نمایش در لیست اصلی :',['class'=>'form-label form-label-admin'])}}

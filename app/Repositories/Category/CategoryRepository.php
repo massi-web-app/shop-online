@@ -5,6 +5,7 @@ namespace App\Repositories\Category;
 use App\Models\Category;
 use App\Services\Uploader\Uploader;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {
@@ -17,20 +18,23 @@ class CategoryRepository implements CategoryRepositoryInterface
         $this->uploader = $uploader;
     }
 
+    public function list(): Collection|array
+    {
+        return Category::get_parent();
+    }
+
     /**
      * @param array $data
      * @return Model
      */
     public function store(array $data): Model
     {
-        return Category::query()->create([
-            'title' => $data['title'],
-            'ename' => $data['ename'],
-            'url' => $this->getUrl($data['ename']),
-            'nowShow' => isset($data['notShow']),
-            'search_url' => $data['search_url'],
-            'img' => $this->uploader->upload($data['image'],'files/upload')
-        ]);
+        $category = new Category($data);
+        $category->url = $this->getUrl($data['ename']);
+        $category->notShow = isset($data['notShow']);
+        $category->img = !empty($data['image']) ? $this->uploader->upload($data['image'], 'files/upload') : null;
+        $category->save();
+        return $category;
     }
 
 

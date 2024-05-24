@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\StoreCategoryRequest;
 use App\Repositories\Category\CategoryRepository;
-use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -20,17 +19,19 @@ class CategoryController extends Controller
     public function index()
     {
 
+        return view('category.index');
     }
 
     public function create()
     {
-        return view('category.create');
+        $parent_categories = $this->categoryRepository->list();
+        return view('category.create',['parent_categories'=>$parent_categories]);
     }
 
     public function store(StoreCategoryRequest $request)
     {
         $this->categoryRepository->store($request->all());
-        return redirect()->route('category.index')->with('message','ثبت دسته با موفقیت انجام شد.');
+        return redirect()->route('category.index')->with('message', 'ثبت دسته با موفقیت انجام شد.');
     }
 
     public function edit()

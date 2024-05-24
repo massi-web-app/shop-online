@@ -109,3 +109,51 @@ a {
 .page_content{
     margin-right: 240px;
 }
+
+.content_box{
+  width: 97%;
+  margin: 40px auto;
+}
+.panel{
+    background: #fff;
+    width: 100%;
+    border:1px solid #f3f3f3;
+    border-radius: 5px;
+    -webkit-border-top-left-radius: 5px;
+}
+
+
+.panel .header {
+    padding-right: 15px;
+    height:45px;
+    border-bottom:1px solid #f3f3f3;
+    display: flex;
+    align-items: center;
+}
+
+.panel_content{
+    padding: 30px;
+}
+.form-group{
+    display: flex;
+    align-items: center;
+}
+
+.form-label.form-label-admin{
+    width: 170px;
+    font-size: 12px;
+    display: inline-block !important;
+}
+
+
+.form-control.form-control-admin{
+    width: 300px !important;
+    font-size: 14px;
+}
+
+
+.has_errors{
+    color: red;
+    font-size: 12px;
+    margin-right: 5px;
+}

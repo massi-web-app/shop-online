@@ -17,10 +17,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin',[
-    \App\Http\Controllers\Admin\AdminController::class,
-    'index'
-])->name('admin.index');
+Route::prefix('/admin')->group(function (){
+
+
+    Route::get('/',[
+        \App\Http\Controllers\Admin\AdminController::class,
+        'index'
+    ])->name('admin.index');
+
+    /**
+     * Route Categories
+     */
+    Route::resource('category',\App\Http\Controllers\Admin\CategoryController::class)
+        ->except(['show']);
+
+});
+
+
+
 
 
 Auth::routes();

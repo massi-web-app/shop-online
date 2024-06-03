@@ -3,11 +3,14 @@
 @section('content')
     <div class="panel">
 
-        <div class="header">افزودن دسته جدید</div>
+        <div class="header">
+            ویرایش دسته بندی - {{$category->title}}
+        </div>
 
         <div class="panel_content">
-            {!! Form::open(['url' => route('category.store'),'files'=>true]) !!}
+            {!! Form::model($category,['url' => route('category.update',$category->id),'files'=>true]) !!}
 
+            {{method_field('PUT')}}
             <div class="mb-3 form-group">
                 {{ Form::label('title','نام دسته :',['class'=>'form-label form-label-admin'])}}
                 {{ Form::text('title',null,['class'=>'form-control form-control-admin'])}}
@@ -59,7 +62,7 @@
                 @endif
             </div>
 
-            <button class="btn btn-success">ثبت دسته</button>
+            <button class="btn btn-primary">ویرایش دسته بندی</button>
 
 
             {!! Form::close() !!}

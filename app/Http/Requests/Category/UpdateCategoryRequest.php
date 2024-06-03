@@ -6,9 +6,8 @@ use App\Services\Category\Validation\CategoryValidation;
 use App\Services\Category\Validation\CategoryValidationFactory;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCategoryRequest extends FormRequest
+class UpdateCategoryRequest extends FormRequest
 {
-
 
     private CategoryValidation $categoryValidation;
 

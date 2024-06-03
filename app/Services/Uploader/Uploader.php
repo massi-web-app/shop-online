@@ -15,6 +15,17 @@ class Uploader implements UploaderInterface
 
     }
 
+    public function removeFile(string $directory, string $nameFile = null): void
+    {
+        if (!empty($nameFile)) {
+            if (file_exists($directory . '/' . $nameFile)) {
+                unlink($directory . '/' . $nameFile);
+            }
+        }
+
+    }
+
+
     public function generateNewFileName($extension): string
     {
         return time() . '.' . $extension;

@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
 interface CategoryRepositoryInterface
 {
 
-    public function list():array | LengthAwarePaginator;
+    public function list(string $trashed=null);
 
     public function getChildAndCategories():array | Collection;
 
@@ -22,6 +22,7 @@ interface CategoryRepositoryInterface
 
     public function update(Category $category,array $data):bool;
 
-    public function delete();
+    public function delete(int $categoryId):bool;
 
+    public function trashed();
 }

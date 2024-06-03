@@ -5,7 +5,6 @@ namespace App\Repositories\Category;
 use App\Models\Category;
 use App\Services\Uploader\Uploader;
 use Exception;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
@@ -14,16 +13,20 @@ class CategoryRepository implements CategoryRepositoryInterface
 
     private Uploader $uploader;
 
-    public static int $paginate = 2;
 
     public function __construct(Uploader $uploader)
     {
         $this->uploader = $uploader;
     }
 
-    public function list(): LengthAwarePaginator
+    public function list(string $trashed = null)
     {
-        return Category::query()->with('getParent')->orderBy('id', 'desc')->paginate(self::$paginate);
+        return Category::query()->with('getParent')->orderBy('id', 'desc');
+    }
+
+    public function trashed(): array|\Illuminate\Database\Eloquent\Collection|Collection
+    {
+        return Category::onlyTrashed()->get();
     }
 
     public function getChildAndCategories(): Collection|array
@@ -43,14 +46,13 @@ class CategoryRepository implements CategoryRepositoryInterface
     }
 
 
-
     public function find(int $id)
     {
         return Category::query()->findOrFail($id);
     }
 
 
-    public function update(Category $category,array $data): bool
+    public function update(Category $category, array $data): bool
     {
         try {
             $category->update($data);
@@ -62,8 +64,10 @@ class CategoryRepository implements CategoryRepositoryInterface
 
     }
 
-    public function delete()
+    public function delete(int $categoryId): bool
     {
-        // TODO: Implement delete() method.
+        $category = $this->find($categoryId);
+        $category->delete();
+        return true;
     }
 }

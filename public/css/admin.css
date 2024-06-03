@@ -9,6 +9,10 @@ body {
     text-align: right !important;
     font-family: "IRANSans" !important;
     font-size: 14px !important;
+    position: absolute;
+    width: 100%;
+    min-height: 700px;
+    background: #f6f8fa;
 }
 
 ul {
@@ -19,9 +23,9 @@ a {
     text-decoration: none !important;
 }
 
-option{
+option {
     font-family: "IRANSans" !important;
-    -webkit-font-feature-settings:"IRANSans" !important;
+    -webkit-font-feature-settings: "IRANSans" !important;
 }
 
 
@@ -37,14 +41,15 @@ option{
     bottom: 0;
 }
 
-.page_sidebar .fa-bars{
-    color:#fff;
+.page_sidebar .fa-bars {
+    color: #fff;
     font-size: 18px;
     float: left;
     cursor: pointer;
     margin: 10px;
 }
-#sidebar_menu{
+
+#sidebar_menu {
     padding: 0;
     margin-top: 60px;
 }
@@ -55,49 +60,51 @@ option{
     display: block;
     font-size: 14px;
 }
-#sidebar_menu .fa-angle-left,#sidebar_menu .fa-angle-down{
+
+#sidebar_menu .fa-angle-left, #sidebar_menu .fa-angle-down {
     float: left;
     font-size: 12px !important;
     margin-top: 5px;
 }
 
 
-#sidebar_menu .fa-angle-left.active{
+#sidebar_menu .fa-angle-left.active {
     transform: rotate(270deg) !important;
 }
 
-#sidebar_menu .active{
+#sidebar_menu .active {
     background: #00bfd6;
 }
 
-.child_menu{
+.child_menu {
     padding-top: 10px !important;
     background: #2c3B40;
     display: none;
 }
 
-.child_menu a{
+.child_menu a {
     width: 100%;
     font-size: 12px !important;
     padding-top: 5px !important;
 }
 
-.toggled{
+.toggled {
     width: 50px !important;
 }
 
-.toggled .sidebar_menu_text{
-    display: none;
-}
-.toggled .fa-angle-left{
+.toggled .sidebar_menu_text {
     display: none;
 }
 
-.toggled #sidebar_menu li a{
+.toggled .fa-angle-left {
+    display: none;
+}
+
+.toggled #sidebar_menu li a {
     text-align: center;
 }
 
-.toggled .child_menu{
+.toggled .child_menu {
     margin-right: 50px;
     width: 230px;
     position: absolute;
@@ -108,23 +115,24 @@ option{
     border-right: 1px dashed #fff;
 }
 
-.toggled .child_menu a{
+.toggled .child_menu a {
     text-align: right !important;
 }
 
 
-.page_content{
+.page_content {
     margin-right: 240px;
 }
 
-.content_box{
-  width: 97%;
-  margin: 40px auto;
+.content_box {
+    width: 97%;
+    margin: 40px auto;
 }
-.panel{
+
+.panel {
     background: #fff;
     width: 100%;
-    border:1px solid #f3f3f3;
+    border: 1px solid #f3f3f3;
     border-radius: 5px;
     -webkit-border-top-left-radius: 5px;
 }
@@ -132,57 +140,124 @@ option{
 
 .panel .header {
     padding-right: 15px;
-    height:45px;
-    border-bottom:1px solid #f3f3f3;
+    height: 45px;
+    border-bottom: 1px solid #f3f3f3;
     display: flex;
     align-items: center;
 }
 
-.panel_content{
+.panel_content {
     padding: 30px;
 }
-.form-group{
+
+.form-group {
     display: flex;
     align-items: center;
 }
 
-.form-label.form-label-admin{
+.form-label.form-label-admin {
     width: 170px;
     font-size: 12px;
     display: inline-block !important;
 }
 
 
-.form-control.form-control-admin{
+.form-control.form-control-admin {
     width: 300px !important;
     font-size: 14px;
 }
 
 
-.has_errors{
+.has_errors {
     color: red;
     font-size: 12px;
     margin-right: 5px;
 }
-.form-select{
+
+.form-select {
     width: 300px !important;
     background-position: left .75rem center !important;
 }
 
-.table-striped > tbody > tr:nth-of-type(2n+1){
+.table-striped > tbody > tr:nth-of-type(2n+1) {
     background-color: #f6f8fa !important;
 }
 
-.table tr th{
+.table tr th {
     font-size: 14px !important;
     text-align: center !important;
 }
-.table tr td{
+
+.table tr td {
     font-size: 12px !important;
     text-align: center;
 }
 
 
-.pagination{
- padding: 0 ;
+.pagination {
+    padding: 0;
+}
+
+
+.message_div {
+    background: rgba(255, 255, 255, .5);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    right: 0;
+    top: 0;
+    left: 0;
+    z-index: 231;
+    display: none;
+}
+
+
+.message_box {
+    background: #fff;
+    width: 360px;
+    height: 135px;
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    border: 1px solid #cccc;
+    margin: auto;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 12px;
+    padding: 20px;
+
+
+}
+
+.message_div .message_box #msg {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 14px;
+}
+
+
+.message_div .message_box .alert {
+    padding: 5px 30px 5px;
+    cursor: pointer;
+}
+
+
+table .fa-remove {
+    color: red;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+
+.header{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.header .dropdown .btn,.header .dropdown .dropdown-item span{
+    font-size: 12px;
+    cursor: pointer;
 }

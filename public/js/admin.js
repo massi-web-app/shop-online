@@ -75,3 +75,51 @@ function loadFile(event) {
 
     file_reader.readAsDataURL(event.target.files[0]);
 }
+
+
+let delete_url = null;
+let token = null;
+
+function delete_row(url, token_form, message_text) {
+
+    delete_url = url;
+    token = token_form;
+
+    $(".message_div #msg").text(message_text);
+    $(".message_div").show();
+
+}
+
+function confirm_operation() {
+
+    let form = document.createElement('form');
+    form.setAttribute('method', 'post');
+    form.setAttribute('action', delete_url);
+
+    const methodField = document.createElement('input');
+    methodField.setAttribute('name', '_method');
+    methodField.setAttribute('value', 'delete');
+
+    form.append(methodField);
+
+
+    const tokenField = document.createElement('input');
+    tokenField.setAttribute('name', '_token');
+    tokenField.setAttribute('value', token);
+    form.append(tokenField);
+
+    document.body.appendChild(form);
+    form.submit();
+
+    document.body.removeChild(form);
+
+}
+
+
+function cancel_operation() {
+    token = null;
+    delete_url = null;
+    $(".message_div #msg").text('');
+    $(".message_div").hide();
+
+}

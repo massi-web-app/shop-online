@@ -53,7 +53,17 @@
 </div>
 
 
+<div class="message_div">
+    <div class="message_box">
+        <p id="msg"></p>
+        <a class="alert alert-success" onclick="confirm_operation()">بلی</a>
+        <a class="alert alert-danger" onclick="cancel_operation()">خیر</a>
+    </div>
+</div>
+
+
 <script src="{{asset('js/font-awesome.js')}}"></script>
+<script src="{{asset('/js/jquery-3.2.1.slim.min.js')}}"></script>
 <script src="{{asset('/js/app.js')}}"></script>
 <script src="{{asset('/js/admin.js')}}"></script>
 </body>

@@ -288,3 +288,13 @@ table .fa-remove {
 .header .dropdown-menu .dropdown-item:focus{
  background: red !important;
 }
+
+
+.tooltip{
+    font-family: "IRANSans" !important;
+}
+
+.tooltip-inner{
+    background: #68a5ff !important;
+    font-size: 13px !important;
+}

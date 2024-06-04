@@ -31,6 +31,11 @@ class CategoryService
         return $categories;
     }
 
+    public function delete(int $categoryId)
+    {
+        $this->categoryRepository->delete($categoryId);
+    }
+
     public function countTrashed()
     {
         return $this->categoryRepository->trashed()->count();
@@ -52,6 +57,11 @@ class CategoryService
         $category=$this->categoryRepository->withTrashed($categoryId);
         $this->categoryRepository->restore($category);
         return true;
+    }
+
+    public function store(array $data)
+    {
+        $this->categoryRepository->store($data);
     }
 
 }

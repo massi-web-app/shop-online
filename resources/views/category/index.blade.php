@@ -41,7 +41,10 @@
                             <td>{{$category->getParent->title}}</td>
                             <td>
                                 @if(!$category->trashed())
-                                    <a href="{{route('category.edit',$category->id)}}"><span class="fa fa-edit"></span></a>
+                                    <a href="{{route('category.edit',$category->id)}}">
+                                        <span  data-bs-toggle="tooltip" data-bs-placement="right"
+                                               title="ویرایش دسته" class="fa fa-edit"></span>
+                                    </a>
                                 @endif
 
                                 @if($category->trashed())

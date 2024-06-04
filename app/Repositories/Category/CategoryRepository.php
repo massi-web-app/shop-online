@@ -5,6 +5,7 @@ namespace App\Repositories\Category;
 use App\Models\Category;
 use App\Services\Uploader\Uploader;
 use Exception;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
@@ -51,6 +52,11 @@ class CategoryRepository implements CategoryRepositoryInterface
         return Category::query()->findOrFail($id);
     }
 
+    public function withTrashed(int $id)
+    {
+        return Category::query()->withTrashed()->findOrFail($id);
+    }
+
 
     public function update(Category $category, array $data): bool
     {
@@ -66,8 +72,42 @@ class CategoryRepository implements CategoryRepositoryInterface
 
     public function delete(int $categoryId): bool
     {
-        $category = $this->find($categoryId);
-        $category->delete();
+        $category = $this->withTrashed($categoryId);
+        if ($category->deleted_at === null) {
+            $category->delete();
+            return true;
+        }
+        $category->forceDelete();
         return true;
+
+    }
+
+    public function remove_items(array $categoryIds)
+    {
+        $categories = Category::query()->withTrashed()->whereIn('id', $categoryIds)->get();
+
+        foreach ($categories as $key => $value) {
+            if ($value->deleted_at === null) {
+                $value->delete();
+            } else {
+                $value->forceDelete();
+            }
+        }
+
+    }
+
+    public function restore_items(array $categoryIds)
+    {
+        $categories = Category::query()->onlyTrashed()->whereIn('id', $categoryIds)->get();
+
+        foreach ($categories as $key => $value) {
+            $value->restore();
+        }
+    }
+
+    public function restore(Model|\Illuminate\Database\Eloquent\Collection|Builder|array|null $category): Model|\Illuminate\Database\Eloquent\Collection|Builder|array|null
+    {
+        $category->restore();
+        return $category;
     }
 }

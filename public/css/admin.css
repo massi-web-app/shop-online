@@ -215,7 +215,7 @@ option {
 .message_box {
     background: #fff;
     width: 360px;
-    height: 135px;
+    height: 150px;
     position: absolute;
     right: 0;
     left: 0;
@@ -251,13 +251,40 @@ table .fa-remove {
 }
 
 
-.header{
+.header {
     display: flex;
     justify-content: space-between;
 }
 
 
-.header .dropdown .btn,.header .dropdown .dropdown-item span{
+.header .dropdown .btn, .header .dropdown .dropdown-item span {
     font-size: 12px;
     cursor: pointer;
+}
+
+
+.header .dropdown  .dropdown-menu{
+    text-align: right !important;
+    font-size: 14px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+
+.dropdown-item {
+    cursor: pointer;
+    padding: 10px;
+}
+
+.dropdown-item.off {
+    color: #999 !important;
+}
+
+
+.dropdown-toggle:focus{
+    box-shadow: none;
+}
+
+.header .dropdown-menu .dropdown-item:focus{
+ background: red !important;
 }

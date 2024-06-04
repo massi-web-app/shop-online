@@ -1,5 +1,8 @@
 let toggle = false;
-
+let delete_url = null;
+let token = null;
+let send_array_data = false;
+let _method = 'DELETE';
 $("#sidebar_menu li").click(function () {
     if (!$(this).hasClass("active")) {
         $("#sidebar_menu li").removeClass('active');
@@ -16,6 +19,7 @@ $("#sidebar_menu li").click(function () {
         $(".child_menu").slideUp();
         $(".child_menu", this).show();
     }
+
 
 })
 
@@ -77,11 +81,9 @@ function loadFile(event) {
 }
 
 
-let delete_url = null;
-let token = null;
-
 function delete_row(url, token_form, message_text) {
 
+    _method = 'DELETE';
     delete_url = url;
     token = token_form;
 
@@ -92,26 +94,31 @@ function delete_row(url, token_form, message_text) {
 
 function confirm_operation() {
 
-    let form = document.createElement('form');
-    form.setAttribute('method', 'post');
-    form.setAttribute('action', delete_url);
 
-    const methodField = document.createElement('input');
-    methodField.setAttribute('name', '_method');
-    methodField.setAttribute('value', 'delete');
+    if (send_array_data) {
+        $("#data_form_table").submit();
+    } else {
+        let form = document.createElement('form');
+        form.setAttribute('method', 'post');
+        form.setAttribute('action', delete_url);
 
-    form.append(methodField);
+        const methodField = document.createElement('input');
+        methodField.setAttribute('name', '_method');
+        methodField.setAttribute('value', _method);
+
+        form.append(methodField);
 
 
-    const tokenField = document.createElement('input');
-    tokenField.setAttribute('name', '_token');
-    tokenField.setAttribute('value', token);
-    form.append(tokenField);
+        const tokenField = document.createElement('input');
+        tokenField.setAttribute('name', '_token');
+        tokenField.setAttribute('value', token);
+        form.append(tokenField);
 
-    document.body.appendChild(form);
-    form.submit();
+        document.body.appendChild(form);
+        form.submit();
 
-    document.body.removeChild(form);
+        document.body.removeChild(form);
+    }
 
 }
 
@@ -123,3 +130,49 @@ function cancel_operation() {
     $(".message_div").hide();
 
 }
+
+
+$(".check_box_item").click(function () {
+    send_array_data = false;
+    const $checkBoxes = $('table td input[type="checkbox"]');
+    const $checkboxes_selected = $checkBoxes.filter(':checked').length;
+
+    if ($checkboxes_selected > 0) {
+        $("#remove_items").removeClass('off');
+        $("#restore_items").removeClass('off');
+    } else {
+        $("#remove_items").addClass('off');
+        $("#restore_items").addClass('off');
+    }
+})
+
+
+$(".item_form").click(function () {
+    send_array_data = true;
+    const $checkBoxes = $('table td input[type="checkbox"]');
+    const $checkboxes_selected = $checkBoxes.filter(':checked').length;
+    if ($checkboxes_selected > 0) {
+        let href = window.location.href.split('?');
+        let action = href[0] + '/' + $(this).attr('id');
+
+        if (href.length === 2) {
+            action = action + '?' + href[1];
+        }
+        $("#data_form_table").attr('action', action);
+        $(".message_div #msg").text($(this).attr('msg'));
+        $(".message_div").show();
+    }
+});
+
+
+function restore_row(url, token_form, message_text) {
+
+    delete_url = url;
+    _method = 'POST'
+    token = token_form;
+
+    $(".message_div #msg").text(message_text);
+    $(".message_div").show();
+
+}
+

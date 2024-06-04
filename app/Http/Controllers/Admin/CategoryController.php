@@ -20,7 +20,7 @@ class CategoryController extends Controller
     private CategoryService $categoryService;
     private Uploader $uploader;
 
-    public function __construct(CategoryService $categoryService,CategoryRepository $categoryRepository, Uploader $uploader)
+    public function __construct(CategoryService $categoryService, CategoryRepository $categoryRepository, Uploader $uploader)
     {
         $this->categoryService = $categoryService;
         $this->categoryRepository = $categoryRepository;
@@ -31,9 +31,9 @@ class CategoryController extends Controller
     {
         $categories = $this->categoryService->list($request->get('trashed'));
         $paginate = CategoryService::$paginate;
-        $trashed_category_count=$this->categoryService->countTrashed();
+        $trashed_category_count = $this->categoryService->countTrashed();
         return view('category.index', ['categories' => $categories, 'paginate' => $paginate,
-            'trashed_category_count'=>$trashed_category_count]);
+            'trashed_category_count' => $trashed_category_count]);
     }
 
     public function create(): Factory|\Illuminate\Foundation\Application|View|Application
@@ -61,7 +61,7 @@ class CategoryController extends Controller
     public function update(int $categoryId, UpdateCategoryRequest $request): RedirectResponse
     {
         $category = $this->categoryRepository->find($categoryId);
-        $this->uploader->removeFile('files/upload',$category->img);
+        $this->uploader->removeFile('files/upload', $category->img);
         $data = $request->all();
         $image = $this->uploader->upload($request->file('image'), 'files/upload');
         $data['img'] = $image;
@@ -73,7 +73,25 @@ class CategoryController extends Controller
     public function destroy(int $categoryId): RedirectResponse
     {
         $this->categoryRepository->delete($categoryId);
-        return redirect()->route('category.index')->with('message', 'دسته مورد نظر با موفقیت به سطل زباله انتقال داده شد.');
+        return redirect()->route('category.index')->with('message', 'عملیات مورد نظر با موفقیت انجام شد.');
+    }
+
+    public function removeItems(Request $request)
+    {
+        $this->categoryService->removeItems($request);
+        return redirect()->route('category.index')->with('message', 'عملیات مورد نظر با موفقیت انجام شد.');
+    }
+
+    public function restoreItems(Request $request)
+    {
+        $this->categoryService->restoreItems($request);
+        return redirect()->route('category.index')->with('message', 'عملیات مورد نظر با موفقیت انجام شد.');
+    }
+
+    public function restore(int $categoryId)
+    {
+        $this->categoryService->restore($categoryId);
+        return redirect()->route('category.index')->with('message', 'دسته مورد نظر با موفقیت بازیابی شد.');
     }
 
 

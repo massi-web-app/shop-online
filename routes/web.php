@@ -17,24 +17,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('/admin')->group(function (){
+Route::prefix('/admin')->group(function () {
 
 
-    Route::get('/',[
+    Route::get('/', [
         \App\Http\Controllers\Admin\AdminController::class,
         'index'
     ])->name('admin.index');
 
-    /**
-     * Route Categories
-     */
-    Route::resource('category',\App\Http\Controllers\Admin\CategoryController::class)
+
+    //region route categories
+    Route::resource('category', \App\Http\Controllers\Admin\CategoryController::class)
         ->except(['show']);
 
+    Route::post('/category/remove_items',[\App\Http\Controllers\Admin\CategoryController::class,'removeItems']);
+    Route::post('/category/restore_items',[\App\Http\Controllers\Admin\CategoryController::class,'restoreItems']);
+    Route::post('/category/{category}',[\App\Http\Controllers\Admin\CategoryController::class,'restore']);
+    //endregion route categories
 });
-
-
-
 
 
 Auth::routes();

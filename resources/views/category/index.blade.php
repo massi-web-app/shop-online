@@ -1,6 +1,11 @@
 @extends('layouts.admin')
 
 @section('content')
+
+    @include('include.breadcrumb',['data'=>[
+    ['title'=>'مدیریت دسته ها','route'=>route('category.index')]
+]])
+
     <div class="panel">
 
         <div class="header">
@@ -42,8 +47,8 @@
                             <td>
                                 @if(!$category->trashed())
                                     <a href="{{route('category.edit',$category->id)}}">
-                                        <span  data-bs-toggle="tooltip" data-bs-placement="right"
-                                               title="ویرایش دسته" class="fa fa-edit"></span>
+                                        <span data-bs-toggle="tooltip" data-bs-placement="right"
+                                              title="ویرایش دسته" class="fa fa-edit"></span>
                                     </a>
                                 @endif
 
@@ -58,10 +63,10 @@
                                     <span class="fa fa-remove"
                                           data-bs-toggle="tooltip" data-bs-placement="right" title="حذف دسته"
                                           onclick="delete_row('{{route('category.destroy',$category->id)}}','{{\Illuminate\Support\Facades\Session::token()}}','آیا از حذف این دسته برای انتقال به سطل زباله مطئمن هستید؟')"></span>
-                                    @else
-                                        <span class="fa fa-remove"
-                                              data-bs-toggle="tooltip" data-bs-placement="right" title="حذف دسته"
-                                              onclick="delete_row('{{route('category.destroy',$category->id)}}','{{\Illuminate\Support\Facades\Session::token()}}','آیا از حذف این دسته برای همیشه مطئمن هستید؟')"></span>
+                                @else
+                                    <span class="fa fa-remove"
+                                          data-bs-toggle="tooltip" data-bs-placement="right" title="حذف دسته"
+                                          onclick="delete_row('{{route('category.destroy',$category->id)}}','{{\Illuminate\Support\Facades\Session::token()}}','آیا از حذف این دسته برای همیشه مطئمن هستید؟')"></span>
                                 @endif
                             </td>
                         </tr>

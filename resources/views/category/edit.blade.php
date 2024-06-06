@@ -1,6 +1,12 @@
 @extends('layouts.admin')
 
 @section('content')
+
+    @include('include.breadcrumb',['data'=>[
+        ['title'=>'مدیریت دسته ها','route'=>route('category.index')],
+        ['title'=>'ویرایش دسته','route'=>route('category.edit',$category->id)],
+        ]])
+
     <div class="panel">
 
         <div class="header">

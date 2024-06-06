@@ -1,6 +1,12 @@
 @extends('layouts.admin')
 
 @section('content')
+
+    @include('include.breadcrumb',['data'=>[
+            ['title'=>'مدیریت دسته ها','route'=>route('category.index')],
+            ['title'=>'افزودن دسته جدید','route'=>route('category.create')],
+            ]])
+
     <div class="panel">
 
         <div class="header">افزودن دسته جدید</div>

@@ -298,3 +298,44 @@ table .fa-remove {
     background: #68a5ff !important;
     font-size: 13px !important;
 }
+
+
+.breadcrumb{
+    width: 100%;
+    background: #fff;
+    padding: 0;
+    border:1px solid #ccc;
+    border-radius: 4px;
+}
+
+.breadcrumb .list-inline{
+    margin-bottom: 0;
+    width: 100%;
+    padding-right: 5px;
+}
+
+.breadcrumb .list-inline li{
+    display: inline-block;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+
+.breadcrumb .list-inline li a{
+    color:#000;
+}
+
+.breadcrumb .list-inline li a:hover{
+    color: #0b5ed7;
+}
+
+.breadcrumb_date{
+    float: left;
+    background: #00bfd6;
+    color:#fff;
+    padding-right: 12px;
+    padding-left: 12px;
+    border-radius: 4px;
+}

@@ -339,3 +339,22 @@ table .fa-remove {
     padding-left: 12px;
     border-radius: 4px;
 }
+
+
+.search_form{
+    padding-bottom: 20px;
+    height: 39px;
+    display: flex;
+    align-items: center;
+}
+
+.search_form .form-control{
+    outline: none;
+}
+
+
+.search_form .btn{
+    margin-right: -5px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}

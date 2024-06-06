@@ -59,4 +59,28 @@ class Category extends Model
     //endregion
 
 
+    //region model methods
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($prent_category){
+            foreach ($prent_category->getChild()->withTrashed()->get() as $category){
+                    if ($category->deleted_at===null){
+                        $category->delete();
+                    }else{
+                        $category->forceDelete();
+                    }
+            }
+        });
+
+        static::restoring(function ($prent_category){
+            foreach ($prent_category->getChild()->withTrashed()->get() as $category){
+               $category->restore();
+            }
+        });
+    }
+    //endregion
+
 }

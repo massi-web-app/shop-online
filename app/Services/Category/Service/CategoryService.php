@@ -18,14 +18,21 @@ class CategoryService
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function list(?string $trashed)
+    public function list(Request $request)
     {
         $queryString = '?';
         $categories = $this->categoryRepository->list();
-        if ($trashed == 'true') {
+        if ($request->get('trashed') == 'true') {
             $categories = $categories->onlyTrashed();
             $queryString = Helper::generateQueryString($queryString, 'trashed=true');
         }
+
+        if (array_key_exists('string', $request->all()) && !empty($request->get('string'))) {
+            $categories = $categories->where('title', 'like', '%' . $request->get('string') . '%');
+            $categories = $categories->orWhere('ename', 'like', '%' . $request->get('string') . '%');
+            $queryString = Helper::generateQueryString($queryString, 'string='.$request->get('string'));
+        }
+
         $categories = $categories->paginate(self::$paginate);
         $categories->withPath($queryString);
         return $categories;
@@ -54,7 +61,7 @@ class CategoryService
 
     public function restore(int $categoryId)
     {
-        $category=$this->categoryRepository->withTrashed($categoryId);
+        $category = $this->categoryRepository->withTrashed($categoryId);
         $this->categoryRepository->restore($category);
         return true;
     }

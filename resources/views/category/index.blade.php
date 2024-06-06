@@ -18,6 +18,17 @@
         <?php $counterRow = (isset($_GET['page'])) ? ($_GET['page'] - 1) * $paginate : 0 ?>
         <div class="panel_content">
             @include('include.alert')
+
+            <form class="search_form" method="get">
+                @if(isset($_GET['trashed']) && $_GET['trashed']==='true')
+                    <input type="hidden" value="true" name="trashed">
+                @endif
+                    <input type="text" class="form-control form-control-admin" name="string"
+                           value="{{$request->get('string','')}}" placeholder="کلمه مورد ....">
+                <button class="btn btn-primary  ">جستجو</button>
+            </form>
+
+
             <form id="data_form_table" method="post">
                 @csrf
                 <table class="table table-bordered table-striped">

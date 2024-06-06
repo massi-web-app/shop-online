@@ -35,6 +35,7 @@ class UpdateCategoryRequest extends FormRequest
         return [
             'title' => 'required',
             'search_url' => 'required_without:ename',
+            'ename' => 'nullable|unique:categories,ename,'.$this->category,
             'image' => 'nullable|image'
         ];
     }

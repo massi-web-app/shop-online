@@ -33,11 +33,11 @@ class CategoryController extends CustomController
 
     public function index(Request $request)
     {
-        $categories = $this->categoryService->list($request->get('trashed'));
+        $categories = $this->categoryService->list($request);
         $paginate = CategoryService::$paginate;
         $trashed_category_count = $this->categoryService->countTrashed();
         return view('category.index', ['categories' => $categories, 'paginate' => $paginate,
-            'trashed_category_count' => $trashed_category_count]);
+            'trashed_category_count' => $trashed_category_count,'request'=>$request]);
     }
 
     public function create(): Factory|\Illuminate\Foundation\Application|View|Application

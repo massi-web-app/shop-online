@@ -374,3 +374,11 @@ table img{
 table tr td {
     vertical-align: middle;
 }
+
+.color{
+    padding: 5px 10px;
+    width: 100px;
+    color:#fff;
+    border:1px solid #ccc;
+    border-radius: 5px;
+}

@@ -36,13 +36,23 @@ Route::prefix('/admin')->group(function () {
     //endregion route categories
 
 
-    //region route categories
+    //region route brands
     Route::resource('brand', \App\Http\Controllers\Admin\BrandController::class)
         ->except(['show']);
 
     Route::post('/brand/remove_items',[\App\Http\Controllers\Admin\BrandController::class,'removeItems']);
     Route::post('/brand/restore_items',[\App\Http\Controllers\Admin\BrandController::class,'restoreItems']);
     Route::post('/brand/{brand}',[\App\Http\Controllers\Admin\BrandController::class,'restore']);
+    //endregion route categories
+
+
+    //region route colors
+    Route::resource('color', \App\Http\Controllers\Admin\ColorController::class)
+        ->except(['show']);
+
+    Route::post('/color/remove_items',[\App\Http\Controllers\Admin\ColorController::class,'removeItems']);
+    Route::post('/color/restore_items',[\App\Http\Controllers\Admin\ColorController::class,'restoreItems']);
+    Route::post('/color/{brand}',[\App\Http\Controllers\Admin\ColorController::class,'restore']);
     //endregion route categories
 });
 

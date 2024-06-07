@@ -3,8 +3,8 @@
 @section('content')
 
     @include('include.breadcrumb',['data'=>[
-            ['title'=>'مدیریت برند ها','route'=>route('category.index')],
-            ['title'=>'افزودن برند جدید','route'=>route('category.create')],
+            ['title'=>'مدیریت برند ها','route'=>route('brand.index')],
+            ['title'=>'افزودن برند جدید','route'=>route('brand.create')],
             ]])
 
     <div class="panel">

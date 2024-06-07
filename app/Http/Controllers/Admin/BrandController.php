@@ -55,9 +55,9 @@ class BrandController extends CustomController
     }
 
 
-    public function edit(int $categoryId): Factory|\Illuminate\Foundation\Application|View|Application
+    public function edit(int $brandId): Factory|\Illuminate\Foundation\Application|View|Application
     {
-        $brand = $this->brandRepository->find($categoryId);
+        $brand = $this->brandRepository->find($brandId);
         return view('brand.edit', ['brand' => $brand]);
     }
 

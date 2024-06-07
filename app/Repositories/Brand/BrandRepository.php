@@ -24,10 +24,6 @@ class BrandRepository implements BrandRepositoryInterface
         return Brand::onlyTrashed()->get();
     }
 
-    public function getChildAndCategories(): Collection|array
-    {
-        return Brand::getChildAndCategories();
-    }
 
     /**
      * @param array $data

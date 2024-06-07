@@ -66,5 +66,6 @@
 <script src="{{asset('/js/jquery-3.2.1.slim.min.js')}}"></script>
 <script src="{{asset('/js/app.js')}}"></script>
 <script src="{{asset('/js/admin.js')}}"></script>
+@yield('js')
 </body>
 </html>

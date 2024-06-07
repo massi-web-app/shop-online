@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Repositories\Brand;
+namespace App\Repositories\Color;
 
 use App\Http\Requests\Category\UpdateCategoryRequest;
-use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Color;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
-interface BrandRepositoryInterface
+interface ColorRepositoryInterface
 {
 
     public function list(string $trashed=null);
@@ -20,9 +20,9 @@ interface BrandRepositoryInterface
 
     public function find(int $id);
 
-    public function update(Brand $brand,array $data):bool;
+    public function update(Color $category,array $data):bool;
 
-    public function delete(int $brandId):bool;
+    public function delete(int $categoryId):bool;
 
     public function trashed();
 

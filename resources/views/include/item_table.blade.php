@@ -8,7 +8,7 @@
 
         <a class="dropdown-item" href="{{route($route.'.index')}}">
             <span class="fa fa-list "></span>
-            <span>مشاهده {{$title}} </span>
+            <span>مشاهده {{$title}} ها </span>
         </a>
 
         <a class="dropdown-item" href="{{route($route.'.create')}}">

@@ -12,9 +12,9 @@ class CustomController extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
-    public function destroy(int $categoryId): RedirectResponse
+    public function destroy(int $modelId): RedirectResponse
     {
-        $this->service->delete($categoryId);
+        $this->service->delete($modelId);
         return redirect()->route($this->route_params.'.index',['trashed'=>'true'])->with('message', 'عملیات مورد نظر با موفقیت انجام شد.');
     }
 

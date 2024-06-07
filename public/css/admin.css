@@ -152,7 +152,7 @@ option {
 
 .form-group {
     display: flex;
-    align-items: center;
+    /*align-items: center;*/
 }
 
 .form-label.form-label-admin {
@@ -357,4 +357,20 @@ table .fa-remove {
     margin-right: -5px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+}
+
+
+.textarea_description{
+    height: 170px !important;
+}
+
+
+table img{
+    width: 100px;
+    height:100px;
+}
+
+
+table tr td {
+    vertical-align: middle;
 }

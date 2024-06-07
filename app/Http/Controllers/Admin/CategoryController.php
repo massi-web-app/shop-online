@@ -71,7 +71,6 @@ class CategoryController extends CustomController
         $data['img'] = $image;
         $this->categoryRepository->update($category, $data);
         return redirect()->route('category.index')->with('message', 'ویرایش دسته بندی با موفقیت انجام شد.');
-
     }
 
 

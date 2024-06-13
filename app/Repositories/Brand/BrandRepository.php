@@ -24,18 +24,12 @@ class BrandRepository implements BrandRepositoryInterface
         return Brand::onlyTrashed()->get();
     }
 
-
-    /**
-     * @param array $data
-     * @return Model
-     */
     public function store(array $data): Model
     {
         $brand = new Brand($data);
         $brand->save();
         return $brand;
     }
-
 
     public function find(int $id)
     {
@@ -46,7 +40,6 @@ class BrandRepository implements BrandRepositoryInterface
     {
         return Brand::query()->withTrashed()->findOrFail($id);
     }
-
 
     public function update(Brand $brand, array $data): bool
     {

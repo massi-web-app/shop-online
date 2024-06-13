@@ -25,34 +25,24 @@ Route::prefix('/admin')->group(function () {
         'index'
     ])->name('admin.index');
 
-
     //region route categories
-    Route::resource('category', \App\Http\Controllers\Admin\CategoryController::class)
-        ->except(['show']);
 
-    Route::post('/category/remove_items',[\App\Http\Controllers\Admin\CategoryController::class,'removeItems']);
-    Route::post('/category/restore_items',[\App\Http\Controllers\Admin\CategoryController::class,'restoreItems']);
-    Route::post('/category/{category}',[\App\Http\Controllers\Admin\CategoryController::class,'restore']);
+    \App\Helper\Helper::generateCrudUrl('category',\App\Http\Controllers\Admin\CategoryController::class);
+
     //endregion route categories
-
 
     //region route brands
-    Route::resource('brand', \App\Http\Controllers\Admin\BrandController::class)
-        ->except(['show']);
 
-    Route::post('/brand/remove_items',[\App\Http\Controllers\Admin\BrandController::class,'removeItems']);
-    Route::post('/brand/restore_items',[\App\Http\Controllers\Admin\BrandController::class,'restoreItems']);
-    Route::post('/brand/{brand}',[\App\Http\Controllers\Admin\BrandController::class,'restore']);
+    \App\Helper\Helper::generateCrudUrl('brand',\App\Http\Controllers\Admin\BrandController::class);
     //endregion route categories
 
-
     //region route colors
-    Route::resource('color', \App\Http\Controllers\Admin\ColorController::class)
-        ->except(['show']);
+    \App\Helper\Helper::generateCrudUrl('color',\App\Http\Controllers\Admin\ColorController::class);
+    //endregion route categories
 
-    Route::post('/color/remove_items',[\App\Http\Controllers\Admin\ColorController::class,'removeItems']);
-    Route::post('/color/restore_items',[\App\Http\Controllers\Admin\ColorController::class,'restoreItems']);
-    Route::post('/color/{brand}',[\App\Http\Controllers\Admin\ColorController::class,'restore']);
+    //region route products
+    \App\Helper\Helper::generateCrudUrl('product',
+        \App\Http\Controllers\Admin\ProductController::class,true);
     //endregion route categories
 });
 

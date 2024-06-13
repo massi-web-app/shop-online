@@ -3,6 +3,7 @@
 namespace App\Helper;
 
 use App\Lib\Jdf;
+use Illuminate\Support\Facades\Route;
 
 class Helper
 {
@@ -19,5 +20,20 @@ class Helper
         return new Jdf();
 
     }
+
+
+    public static function generateCrudUrl($name_route,$controller,$show=false):void
+    {
+        Route::post($name_route.'/remove_items',[$controller,'removeItems']);
+        Route::post($name_route.'/restore_items',[$controller,'restoreItems']);
+        Route::post($name_route.'/{category}',[$controller,'restore']);
+        if ($show){
+            Route::resource($name_route, $controller);
+            return;
+        }
+        Route::resource($name_route, $controller)->except(['show']);
+
+    }
+
 
 }

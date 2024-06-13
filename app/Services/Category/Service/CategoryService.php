@@ -18,6 +18,12 @@ class CategoryService
         $this->categoryRepository = $categoryRepository;
     }
 
+    public function store(array $data)
+    {
+        $this->categoryRepository->store($data);
+    }
+
+
     public function list(Request $request)
     {
         $queryString = '?';
@@ -48,17 +54,6 @@ class CategoryService
         return $this->categoryRepository->trashed()->count();
     }
 
-    public function removeItems(Request $request)
-    {
-        $this->categoryRepository->remove_items($request->get('category_id'));
-
-    }
-
-    public function restoreItems(Request $request)
-    {
-        $this->categoryRepository->restore_items($request->get('category_id'));
-    }
-
     public function restore(int $categoryId)
     {
         $category = $this->categoryRepository->withTrashed($categoryId);
@@ -66,9 +61,6 @@ class CategoryService
         return true;
     }
 
-    public function store(array $data)
-    {
-        $this->categoryRepository->store($data);
-    }
+
 
 }

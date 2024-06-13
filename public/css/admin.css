@@ -15,6 +15,9 @@ body {
     background: #f6f8fa;
 }
 
+select{
+    font-size: 12px !important;
+}
 ul {
     list-style: none;
 }
@@ -263,7 +266,7 @@ table .fa-remove {
 }
 
 
-.header .dropdown  .dropdown-menu{
+.header .dropdown .dropdown-menu {
     text-align: right !important;
     font-size: 14px !important;
     padding-top: 0 !important;
@@ -281,40 +284,40 @@ table .fa-remove {
 }
 
 
-.dropdown-toggle:focus{
+.dropdown-toggle:focus {
     box-shadow: none;
 }
 
-.header .dropdown-menu .dropdown-item:focus{
- background: red !important;
+.header .dropdown-menu .dropdown-item:focus {
+    background: red !important;
 }
 
 
-.tooltip{
+.tooltip {
     font-family: "IRANSans" !important;
 }
 
-.tooltip-inner{
+.tooltip-inner {
     background: #68a5ff !important;
     font-size: 13px !important;
 }
 
 
-.breadcrumb{
+.breadcrumb {
     width: 100%;
     background: #fff;
     padding: 0;
-    border:1px solid #ccc;
+    border: 1px solid #ccc;
     border-radius: 4px;
 }
 
-.breadcrumb .list-inline{
+.breadcrumb .list-inline {
     margin-bottom: 0;
     width: 100%;
     padding-right: 5px;
 }
 
-.breadcrumb .list-inline li{
+.breadcrumb .list-inline li {
     display: inline-block;
     padding-top: 15px;
     padding-bottom: 15px;
@@ -323,51 +326,51 @@ table .fa-remove {
 }
 
 
-.breadcrumb .list-inline li a{
-    color:#000;
+.breadcrumb .list-inline li a {
+    color: #000;
 }
 
-.breadcrumb .list-inline li a:hover{
+.breadcrumb .list-inline li a:hover {
     color: #0b5ed7;
 }
 
-.breadcrumb_date{
+.breadcrumb_date {
     float: left;
     background: #00bfd6;
-    color:#fff;
+    color: #fff;
     padding-right: 12px;
     padding-left: 12px;
     border-radius: 4px;
 }
 
 
-.search_form{
+.search_form {
     padding-bottom: 20px;
     height: 39px;
     display: flex;
     align-items: center;
 }
 
-.search_form .form-control{
+.search_form .form-control {
     outline: none;
 }
 
 
-.search_form .btn{
+.search_form .btn {
     margin-right: -5px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
 
 
-.textarea_description{
+.textarea_description {
     height: 170px !important;
 }
 
 
-table img{
+table img {
     width: 100px;
-    height:100px;
+    height: 100px;
 }
 
 
@@ -375,10 +378,27 @@ table tr td {
     vertical-align: middle;
 }
 
-.color{
+.color {
     padding: 5px 10px;
     width: 100px;
-    color:#fff;
-    border:1px solid #ccc;
+    color: #fff;
+    border: 1px solid #ccc;
     border-radius: 5px;
+}
+
+
+.total_with_input {
+    width: 100% !important;
+}
+
+
+.left_direction{
+    direction: ltr !important;
+    text-align: left !important;
+}
+
+
+.col-right input,.col-right .form-select{
+    width: 100% !important;
+    font-size: 12px;
 }

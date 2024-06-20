@@ -42,7 +42,7 @@
 
                     <div class="mb-3">
                         {{ Form::label('category_id','انتخاب دسته :',['class'=>'form-label'])}}
-                        {{ Form::select('category_id',$categories,null,['class'=>'form-label total_with_input form-select',
+                        {{ Form::select('category_id',$categories,null,['class'=>'total_with_input form-select',
         'data-live-search'=>'true'])}}
                         @if($errors->has('category_id'))
                             <span class="has_errors">{{$errors->first('category_id')}}</span>
@@ -51,25 +51,33 @@
 
                     <div class="mb-3">
                         {{ Form::label('brand_id','انتخاب برند :',['class'=>'form-label'])}}
-                        {{ Form::select('brand_id',$brands,null,['class'=>'form-label total_with_input form-select',
+                        {{ Form::select('brand_id',$brands,null,['class'=>'total_with_input form-select',
         'data-live-search'=>'true'])}}
                         @if($errors->has('brand_id'))
                             <span class="has_errors">{{$errors->first('brand_id')}}</span>
                         @endif
                     </div>
 
+
                     <div class="mb-3">
-                        <label for="color">انتخاب رنگ محصول</label>
-                        <select name="product_color[]" class="selectpicker" data-live-search="true" multiple>
+                        <label for="product_color" class="form-label">انتخاب رنگ محصول</label>
+                        <select name="product_color[]" class="total_with_input form-select" data-live-search="true" multiple>
+                            <option value="-1" selected="selected">لطفا رنگ های محصول را انتخاب کنید</option>
                             @foreach($colors as $color)
                                 <option value="{{$color->id}}"
-                                        data-content="<span style='background=#{{$color->code}}'></span>">{{$color->title}}</option>
+                                        data-content="<span style='background:{{$color->code}}'>{{$color->name}}</span>">{{$color->name}}</option>
                             @endforeach
                         </select>
                     </div>
 
                 </div>
-                <div class="col-12 col-md-6" style="height: 150px;background: blue"></div>
+                <div class="col-12 col-md-6">
+                        <div class="choice_pic_box">
+                            <span class="title">انتخاب تصویر محصول</span>
+                            <input type="file" name="image" id="image" style="display: none;" onchange="loadFile(event)">
+                            <img src="/files/images/pic_1.png" alt="select image" class="output_image" onclick="select_file()" id="output_image" width="150px">
+                        </div>
+                </div>
             </div>
 
 

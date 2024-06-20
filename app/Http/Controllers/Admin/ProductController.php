@@ -39,7 +39,7 @@ class ProductController extends CustomController
     public function create()
     {
         $brands = [0 => 'انتخاب برند'];
-        $colors = $this->colorRepository->list();
+        $colors = $this->colorRepository->list()->get();
         $brands = $brands + $this->brandRepository->list()->get()->pluck('name', 'id')->toArray();
         $categories = $this->categoryRepository->list()->get()->pluck('title', 'id')->toArray();
         return view('product.create', ['colors' => $colors, 'brands' => $brands, 'categories' => $categories]);

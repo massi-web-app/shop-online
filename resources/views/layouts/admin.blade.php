@@ -8,6 +8,7 @@
     <title>پنل مدیریت</title>
     <link rel="stylesheet" href="{{asset('/css/app.css')}}">
     <link rel="stylesheet" href="{{asset('/css/admin.css')}}">
+    <link rel="stylesheet" href="{{asset('/css/bootstrap-select.min.css')}}">
 
 </head>
 <body>
@@ -66,6 +67,14 @@
 <script src="{{asset('/js/jquery-3.2.1.slim.min.js')}}"></script>
 <script src="{{asset('/js/app.js')}}"></script>
 <script src="{{asset('/js/admin.js')}}"></script>
+<script src="{{asset('/js/bootstrap-select.min.js')}}"></script>
+<script src="{{asset('/js/defaults-fa_IR.js')}}"></script>
+
+<script>
+    $('select').selectpicker();
+
+</script>
+
 @yield('js')
 </body>
 </html>

@@ -175,4 +175,3 @@ function restore_row(url, token_form, message_text) {
     $(".message_div").show();
 
 }
-

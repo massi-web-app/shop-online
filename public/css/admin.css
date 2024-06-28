@@ -15,9 +15,10 @@ body {
     background: #f6f8fa;
 }
 
-select{
+select {
     font-size: 12px !important;
 }
+
 ul {
     list-style: none;
 }
@@ -392,13 +393,13 @@ table tr td {
 }
 
 
-.left_direction{
+.left_direction {
     direction: ltr !important;
     text-align: left !important;
 }
 
 
-.col-right input,.col-right .form-select{
+.col-right input, .col-right .form-select {
     width: 100% !important;
     font-size: 12px;
 }
@@ -408,32 +409,32 @@ table tr td {
 }
 
 
-.filter-option .filter-option-inner .filter-option-inner-inner{
+.filter-option .filter-option-inner .filter-option-inner-inner {
     font-size: 12px;
     text-align: right;
 }
 
 
-.dropdown-menu > li > a{
+.dropdown-menu > li > a {
     font-size: 12px;
     text-align: right;
 }
-.dropdown-menu > li > a > span.text > span , .filter-option .filter-option-inner .filter-option-inner-inner span{
+
+.dropdown-menu > li > a > span.text > span, .filter-option .filter-option-inner .filter-option-inner-inner span {
     padding: 5px;
-    color:#fff;
-    border:1px solid #ccc;
+    color: #fff;
+    border: 1px solid #ccc;
     border-radius: 5px;
 }
 
 
-
-.choice_pic_box{
+.choice_pic_box {
     background: #f8f8f8;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    border:1px dashed #ccc;
+    border: 1px dashed #ccc;
     cursor: pointer;
     min-height: 300px;
     max-height: 300px;
@@ -442,14 +443,29 @@ table tr td {
 }
 
 
-.choice_pic_box .title{
+.choice_pic_box .title {
     position: absolute;
-    color:gray;
+    color: gray;
 }
 
 
-.output_image{
+.output_image {
     width: 100%;
     height: 100%;
 
+}
+
+
+.tag_div {
+    float: right;
+    margin-right: 10px;
+    padding: 5px 10px;
+    background: #f9f9f9;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.message_text {
+    font-size: 12px;
+    color: red;
 }

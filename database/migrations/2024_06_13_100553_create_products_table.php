@@ -16,9 +16,9 @@ return new class extends Migration {
             $table->string('ename')->nullable();
             $table->string('product_url');
             $table->integer('price')->nullable();
-            $table->string('discount_price');
+            $table->integer('discount_price')->default(0);
             $table->boolean('show')->default(true);
-            $table->integer('view');
+            $table->integer('view')->default(0);
             $table->text('keywords')->nullable();
             $table->text('summery');
             $table->boolean('special')->default(false);

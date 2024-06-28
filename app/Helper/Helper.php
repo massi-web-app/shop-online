@@ -4,6 +4,7 @@ namespace App\Helper;
 
 use App\Lib\Jdf;
 use Illuminate\Support\Facades\Route;
+use Spatie\Image\Image;
 
 class Helper
 {
@@ -35,5 +36,13 @@ class Helper
 
     }
 
+    public static function fit_image($image_url,$image_name)
+    {
+        Image::load($image_url)
+            ->width(300)
+            ->height(300)
+            ->save('/files/thumbnails/'.$image_name);
+
+    }
 
 }

@@ -7,11 +7,14 @@
     "require": {
         "php": "^8.1",
         "guzzlehttp/guzzle": "^7.2",
+        "intervention/image": "^3.7",
+        "intervention/image-symfony": "^1.1",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.5",
-        "laravelcollective/html": "^6.4"
+        "laravelcollective/html": "^6.4",
+        "spatie/image": "^3.6"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.13",
@@ -64,6 +67,6 @@
             "php-http/discovery": true
         }
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true
 }

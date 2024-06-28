@@ -60,24 +60,56 @@
 
 
                     <div class="mb-3">
-                        <label for="product_color" class="form-label">انتخاب رنگ محصول</label>
-                        <select name="product_color[]" class="total_with_input form-select" data-live-search="true" multiple>
+                        <label for="product_color_id" class="form-label">انتخاب رنگ محصول</label>
+                        <select name="product_color_id[]" class="total_with_input form-select" data-live-search="true"
+                                multiple>
                             <option value="-1" selected="selected">لطفا رنگ های محصول را انتخاب کنید</option>
                             @foreach($colors as $color)
                                 <option value="{{$color->id}}"
                                         data-content="<span style='background:{{$color->code}}'>{{$color->name}}</span>">{{$color->name}}</option>
                             @endforeach
                         </select>
+                        @if($errors->has('product_color_id'))
+                            <span class="has_errors">{{$errors->first('product_color_id')}}</span>
+                        @endif
                     </div>
+
+                    <div class="mb-3">
+                        {{ Form::label('status','وضعیت محصول :',['class'=>'form-label'])}}
+                        {{ Form::select('status',$status,1,['class'=>'total_with_input form-select','data-live-search'=>'true'])}}
+                        @if($errors->has('status'))
+                            <span class="has_errors">{{$errors->first('status')}}</span>
+                        @endif
+                    </div>
+
 
                 </div>
                 <div class="col-12 col-md-6">
-                        <div class="choice_pic_box">
-                            <span class="title">انتخاب تصویر محصول</span>
-                            <input type="file" name="image" id="image" style="display: none;" onchange="loadFile(event)">
-                            <img src="/files/images/pic_1.png" alt="select image" class="output_image" onclick="select_file()" id="output_image" width="150px">
-                        </div>
+                    <div class="choice_pic_box">
+                        <span class="title">انتخاب تصویر محصول</span>
+                        <input type="file" name="image_url" id="image" style="display: none;" onchange="loadFile(event)">
+                        <img src="/files/images/pic_1.png" alt="select image" class="output_image"
+                             onclick="select_file()" id="output_image" width="150px">
+                    </div>
                 </div>
+            </div>
+
+            <div class="row">
+                <p class="message_text">برچسب ها با استفاده از (،) ازهم جدا میشوند</p>
+                <div class="mb-3 form-group">
+                    <input type="text" name="tag_list" id="tag_list" class="form-control total_with_input" placeholder="برچسب های محصول">
+                    <div class="btn btn-success" style="font-size: 10px;line-height: 20px;" onclick="add_tag()">افزودن </div>
+                    <input type="hidden" name="keywords" id="keywords">
+                </div>
+                <div id="tag_box"></div>
+            </div>
+
+            <div class="mb-3">
+                {{ Form::label('description','توضیحات مختصر محصول: (حداکثر 155 کاراکتر)',['class'=>'form-label form-label-admin '])}}
+                {{ Form::textarea('description',null,['class'=>'form-control total_with_input'])}}
+                @if($errors->has('description'))
+                    <span class="has_errors">{{$errors->first('description')}}</span>
+                @endif
             </div>
 
 

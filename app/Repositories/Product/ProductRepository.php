@@ -2,8 +2,8 @@
 
 namespace App\Repositories\Product;
 
-use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductColor;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,7 +17,17 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function store(array $data): Model
     {
-        // TODO: Implement store() method.
+        $product = Product::query()->create($data);
+
+        //todo:refactor set the product color
+        foreach ($data['product_color_id'] as $color_id){
+            ProductColor::query()->create([
+                'color_id'=>$color_id,
+                'product_id'=>$product->id,
+                'category_id'=>$product->category_id
+            ]);
+        }
+        return $product;
     }
 
     public function find(int $id)
@@ -43,5 +53,10 @@ class ProductRepository implements ProductRepositoryInterface
     public function restore(Model|\Illuminate\Database\Eloquent\Collection|Builder|array|null $category): Model|\Illuminate\Database\Eloquent\Collection|Builder|array|null
     {
         // TODO: Implement restore() method.
+    }
+
+    public function getStatus(): array
+    {
+        return Product::productStatus();
     }
 }

@@ -175,3 +175,41 @@ function restore_row(url, token_form, message_text) {
     $(".message_div").show();
 
 }
+
+function remove_tag(tag_id, tag_name) {
+
+    $(`#tag_div_${tag_id}`).remove();
+    const keywords = document.getElementById("keywords").value;
+    const tag_first = tag_name + ',';
+    const tag_latest = ',' + tag_name;
+    let a = keywords.replace(tag_first, "");
+    let b = a.replace(tag_latest, "");
+
+    document.getElementById("keywords").value = b;
+}
+
+function add_tag() {
+    const tag_list = document.getElementById("tag_list").value;
+    const tag_list_array = tag_list.split('،');
+    const keywords = document.getElementById("keywords").value;
+    let count = document.getElementsByClassName('tag_div').length + 1;
+    let string = keywords;
+    for (let i = 0; i < tag_list_array.length; i++) {
+        if (tag_list_array[i].trim() !== '') {
+            const check_tag_exists = keywords.search(tag_list_array[i]);
+            if (check_tag_exists === -1) {
+                const tag_name_row = "'" + tag_list_array[i] + "'";
+                string = string + ',' + tag_list_array[i];
+                let tag = '<div class="tag_div" id="tag_div_' + count + '">' +
+                    '<span class="fa fa-remove" onclick="remove_tag(' + count + ',' + tag_name_row + ')"></span>' + tag_list_array[i] +
+                    '</div>';
+
+                count++;
+                $("#tag_box").append(tag);
+            }
+        }
+    }
+
+    document.getElementById('keywords').value = string;
+    document.getElementById("tag_list").value = '';
+}

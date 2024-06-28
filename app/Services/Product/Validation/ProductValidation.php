@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Services\Category\Validation;
+namespace App\Services\Product\Validation;
 
-class CategoryValidation
+class ProductValidation
 {
-
     public function prepareForSave($request)
     {
         return [
-            'url' => $this->getUrl($request->get('ename')),
-            'notShow' => (bool)$request->has('notShow'),
+            'product_url' => $this->getUrl($request->get('ename')),
         ];
 
     }

@@ -3,75 +3,134 @@
 @section('content')
 
     @include('include.breadcrumb',['data'=>[
-        ['title'=>'مدیریت دسته ها','route'=>route('category.index')],
-        ['title'=>'ویرایش دسته','route'=>route('category.edit',$category->id)],
-        ]])
+            ['title'=>'مدیریت محصولات','route'=>route('product.index')],
+            ['title'=>'ویرایش محصول ','route'=>route('product.edit',$product->id)],
+            ]])
 
     <div class="panel">
 
-        <div class="header">
-            ویرایش دسته بندی - {{$category->title}}
-        </div>
+        <div class="header">ویرایش محصول - {{$product->title}}</div>
 
         <div class="panel_content">
-            {!! Form::model($category,['url' => route('category.update',$category->id),'files'=>true]) !!}
+            {!! Form::model($product,['url' => route('product.update',$product->id),'files'=>true]) !!}
 
-            {{method_field('PUT')}}
             <div class="mb-3 form-group">
-                {{ Form::label('title','نام دسته :',['class'=>'form-label form-label-admin'])}}
-                {{ Form::text('title',null,['class'=>'form-control form-control-admin'])}}
+                {{ Form::label('title','نام محصول :',['class'=>'form-label form-label-admin '])}}
+                {{ Form::text('title',null,['class'=>'form-control total_with_input '])}}
                 @if($errors->has('title'))
                     <span class="has_errors">{{$errors->first('title')}}</span>
                 @endif
             </div>
 
-            <div class="mb-3 form-group">
-                {{ Form::label('ename','نام لاتین :',['class'=>'form-label form-label-admin'])}}
-                {{ Form::text('ename',null,['class'=>'form-control form-control-admin'])}}
-                @if($errors->has('ename'))
-                    <span class="has_errors">{{$errors->first('ename')}}</span>
+            <div class="mb-3">
+                {{ Form::label('summery','توضیحات :',['class'=>'form-label form-label-admin '])}}
+                {{ Form::textarea('summery',null,['class'=>'form-control total_with_input editor1'])}}
+                @if($errors->has('summery'))
+                    <span class="has_errors">{{$errors->first('summery')}}</span>
+                @endif
+            </div>
+
+            <div class="row form-group">
+                <div class="col-12 col-md-6" id="col-right">
+                    <div class="mb-3">
+                        {{ Form::label('ename','نام لاتین محصول :',['class'=>'form-label'])}}
+                        {{ Form::text('ename',null,['class'=>'form-control total_with_input left_direction'])}}
+                        @if($errors->has('ename'))
+                            <span class="has_errors">{{$errors->first('ename')}}</span>
+                        @endif
+                    </div>
+
+                    <div class="mb-3">
+                        {{ Form::label('category_id','انتخاب دسته :',['class'=>'form-label'])}}
+                        {{ Form::select('category_id',$categories,null,['class'=>'total_with_input form-select',
+        'data-live-search'=>'true'])}}
+                        @if($errors->has('category_id'))
+                            <span class="has_errors">{{$errors->first('category_id')}}</span>
+                        @endif
+                    </div>
+
+                    <div class="mb-3">
+                        {{ Form::label('brand_id','انتخاب برند :',['class'=>'form-label'])}}
+                        {{ Form::select('brand_id',$brands,null,['class'=>'total_with_input form-select',
+        'data-live-search'=>'true'])}}
+                        @if($errors->has('brand_id'))
+                            <span class="has_errors">{{$errors->first('brand_id')}}</span>
+                        @endif
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="product_color_id" class="form-label">انتخاب رنگ محصول</label>
+                        <select name="product_color_id[]" class="total_with_input form-select" data-live-search="true"
+                                multiple>
+                            <option value="-1" >لطفا رنگ های محصول را انتخاب کنید</option>
+                            @foreach($colors as $color)
+                                <option value="{{$color->id}}"
+                                        @if(array_key_exists($color->id,$product_colors))
+                                            selected="selected"
+                                        @endif
+                                        data-content="<span style='background:{{$color->code}}'>{{$color->name}}</span>">{{$color->name}}</option>
+                            @endforeach
+                        </select>
+                        @if($errors->has('product_color_id'))
+                            <span class="has_errors">{{$errors->first('product_color_id')}}</span>
+                        @endif
+                    </div>
+
+                    <div class="mb-3">
+                        {{ Form::label('status','وضعیت محصول :',['class'=>'form-label'])}}
+                        {{ Form::select('status',$status,$product->status,['class'=>'total_with_input form-select','data-live-search'=>'true'])}}
+                        @if($errors->has('status'))
+                            <span class="has_errors">{{$errors->first('status')}}</span>
+                        @endif
+                    </div>
+
+
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="choice_pic_box">
+                        <span class="title">انتخاب تصویر محصول</span>
+                        <input type="file" name="image_url" id="image" style="display: none;"
+                               onchange="loadFile(event)">
+                        <img src="/files/images/pic_1.png" alt="select image" class="output_image"
+                             onclick="select_file()" id="output_image" width="150px">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <p class="message_text">برچسب ها با استفاده از (،) ازهم جدا میشوند</p>
+                <div class="mb-3 form-group">
+                    <input type="text" name="tag_list" id="tag_list" class="form-control total_with_input"
+                           placeholder="برچسب های محصول">
+                    <div class="btn btn-success" style="font-size: 10px;line-height: 20px;" onclick="add_tag()">افزودن
+                    </div>
+                    <input type="hidden" name="keywords" id="keywords" value="{{$product->keywords}}">
+                </div>
+                <div id="tag_box"></div>
+            </div>
+
+            <div class="mb-3">
+                {{ Form::label('description','توضیحات مختصر محصول: (حداکثر 155 کاراکتر)',['class'=>'form-label form-label-admin '])}}
+                {{ Form::textarea('description',null,['class'=>'form-control total_with_input'])}}
+                @if($errors->has('description'))
+                    <span class="has_errors">{{$errors->first('description')}}</span>
                 @endif
             </div>
 
 
-            <div class="mb-3 form-group">
-                {{ Form::label('search_url','دسته url :',['class'=>'form-label form-label-admin'])}}
-                {{ Form::text('search_url',null,['class'=>'form-control form-control-admin'])}}
-                @if($errors->has('search_url'))
-                    <span class="has_errors">{{$errors->first('search_url')}}</span>
-                @endif
-            </div>
-
-            <div class="mb-3 form-group">
-                {{ Form::label('parent_id','دسته والد :',['class'=>'form-label form-label-admin'])}}
-                {{ Form::select('parent_id',$parent_categories,null,['class'=>'form-label form-label-admin form-select',
-'data-live-search'=>'true'])}}
-            </div>
-
-
-            <div class="mb-3 form-group">
-                <input type="file" name="image" id="image" style="display: none;" onchange="loadFile(event)">
-                {{ Form::label('image','تصویر دسته :',['class'=>'form-label form-label-admin'])}}
-                <img src="/files/images/pic_1.png" alt="select image" onclick="select_file()" id="output_image" width="150px">
-                @if($errors->has('image'))
-                    <span class="has_errors">{{$errors->first('image')}}</span>
-                @endif
-            </div>
-
-
-
-            <div class="mb-3 form-group">
-                {{ Form::label('notShow','عدم نمایش در لیست اصلی :',['class'=>'form-label form-label-admin'])}}
-                {{ Form::checkbox('notShow', false)}}
-                @if($errors->has('notShow'))
-                    <span class="has_errors">{{$errors->first('notShow')}}</span>
-                @endif
-            </div>
-
-            <button class="btn btn-primary">ویرایش دسته بندی</button>
-
+            <button class="btn btn-success">ثبت محصول</button>
 
             {!! Form::close() !!}
         </div>
     </div>
+@endsection
+
+
+
+@section('js')
+    <script type="text/javascript" src="{{asset('/ckeditor/ckeditor.js')}}"></script>
+    <script>
+        CKEDITOR.replace('summery');
+    </script>
 @endsection

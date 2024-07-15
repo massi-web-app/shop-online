@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Product;
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductColor;
 use Illuminate\Database\Eloquent\Builder;
@@ -12,7 +13,7 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function list(string $trashed = null)
     {
-        // TODO: Implement list() method.
+        return Product::query()->orderBy('id', 'desc');
     }
 
     public function store(array $data): Model
@@ -45,9 +46,9 @@ class ProductRepository implements ProductRepositoryInterface
         // TODO: Implement delete() method.
     }
 
-    public function trashed()
+    public function trashed(): array|\Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection
     {
-        // TODO: Implement trashed() method.
+        return Category::onlyTrashed()->get();
     }
 
     public function restore(Model|\Illuminate\Database\Eloquent\Collection|Builder|array|null $category): Model|\Illuminate\Database\Eloquent\Collection|Builder|array|null

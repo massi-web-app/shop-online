@@ -14,7 +14,7 @@ class Product extends Model
 
     protected $table = 'products';
     protected $fillable = ['title', 'ename', 'brand_id', 'category_id', 'image_url', 'special', 'price', 'view', 'show',
-        'discount_price', 'summery', 'description', 'keywords', 'product_url'];
+        'discount_price', 'summery', 'description', 'keywords', 'product_url','status'];
 
     //endregion model config
 
@@ -30,15 +30,32 @@ class Product extends Model
         return $array;
     }
 
-
     //endregion model methods
 
 
     //region relations
     public function productColors()
     {
-        return $this->hasManyThrough(Color::class,ProductColor::class,'id','id','product_id','color_id');
-
+        return $this->hasManyThrough(Color::class,ProductColor::class,'product_id','id','id','color_id');
     }
     //endregion relations
+
+    //region mutator
+
+
+    public function getProductStatusAttribute()
+    {
+        $list_status=self::productStatus();
+        if (array_key_exists($this->status,$list_status)) {
+            return $list_status[$this->status];
+        }
+        return null;
+
+    }
+
+    public function getProductColorAttribute()
+    {
+        dd($this->productColors()->get());
+    }
+    //endregion
 }

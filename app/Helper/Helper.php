@@ -23,12 +23,12 @@ class Helper
     }
 
 
-    public static function generateCrudUrl($name_route,$controller,$show=false):void
+    public static function generateCrudUrl($name_route, $controller, $show = false): void
     {
-        Route::post($name_route.'/remove_items',[$controller,'removeItems']);
-        Route::post($name_route.'/restore_items',[$controller,'restoreItems']);
-        Route::post($name_route.'/{category}',[$controller,'restore']);
-        if ($show){
+        Route::post($name_route . '/remove_items', [$controller, 'removeItems']);
+        Route::post($name_route . '/restore_items', [$controller, 'restoreItems']);
+        Route::post($name_route . '/{category}', [$controller, 'restore']);
+        if ($show) {
             Route::resource($name_route, $controller);
             return;
         }
@@ -36,13 +36,30 @@ class Helper
 
     }
 
-    public static function fit_image($image_url,$image_name)
+    public static function fit_image($image_url, $image_name)
     {
         Image::load($image_url)
             ->width(300)
             ->height(300)
-            ->save('/files/thumbnails/'.$image_name);
+            ->save('/files/thumbnails/' . $image_name);
 
+    }
+
+    public static function isTrashed($request): bool
+    {
+        if (array_key_exists('trashed', $request->all()) && $request['trashed'] === 'true') {
+            return true;
+        }
+        return false;
+
+    }
+
+    public static function hasStringInSearch($request): bool
+    {
+        if (array_key_exists('string', $request->all()) && !empty($request->get('string'))) {
+            return true;
+        }
+        return false;
     }
 
 }

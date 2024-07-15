@@ -3,16 +3,16 @@
 @section('content')
 
     @include('include.breadcrumb',['data'=>[
-    ['title'=>'مدیریت دسته ها','route'=>route('category.index')]
+    ['title'=>'مدیریت محصولات','route'=>route('product.index')]
 ]])
 
     <div class="panel">
 
         <div class="header">
-            <span class="title_page">مدیریت دسته بندی ها</span>
+            <span class="title_page">مدیریت محصولات</span>
 
-            @include('include.item_table',['trashed_count'=>$trashed_category_count,
-                       'route'=>'category','title'=>'دسته'])
+            @include('include.item_table',['trashed_count'=>$trashed_product_count,
+                       'route'=>'product','title'=>'محصول'])
         </div>
 
         <?php $counterRow = (isset($_GET['page'])) ? ($_GET['page'] - 1) * $paginate : 0 ?>
@@ -36,55 +36,68 @@
                     <tr>
                         <th>#</th>
                         <th>ردیف</th>
-                        <th>نام دسته</th>
-                        <th>دسته والد</th>
+                        <th>تصویر محصول</th>
+                        <th>نام فروشنده</th>
+                        <th>نام محصول</th>
+                        <th>وضعیت محصول</th>
                         <th>عملیات</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($categories as $key_category=>$category)
+                    @foreach($products as $key_product=>$product)
                         @php($counterRow++)
                         <tr>
                             <td>
-                                <input type="checkbox" class="check_box_item" name="category_id[]"
-                                       value="{{$category->id}}">
+                                <input type="checkbox" class="check_box_item" name="product_id[]"
+                                       value="{{$product->id}}">
                             </td>
 
                             <td>
                                 {{$counterRow}}
                             </td>
-                            <td>{{$category->title}}</td>
-                            <td>{{$category->getParent->title}}</td>
                             <td>
-                                @if(!$category->trashed())
-                                    <a href="{{route('category.edit',$category->id)}}">
+                                <img src="{{asset('files/products/'.$product->image_url)}}" alt="image product" class="product_image">
+                            </td>
+                            <td>
+                                -
+                            </td>
+                            <td>{{$product->title}}</td>
+                            <td style="width: 120px;">
+                                <span class="alert @if($product->status===1) alert-success @else alert-warning @endif"
+                                      style="font-size:13px;padding: 5px 7px; ">
+                                  {{$product->productStatus}}
+                                </span>
+                            </td>
+                            <td>
+                                @if(!$product->trashed())
+                                    <a href="{{route('product.edit',$product->id)}}">
                                         <span data-bs-toggle="tooltip" data-bs-placement="right"
-                                              title="ویرایش دسته" class="fa fa-edit"></span>
+                                              title="ویرایش محصول" class="fa fa-edit"></span>
                                     </a>
                                 @endif
 
-                                @if($category->trashed())
+                                @if($product->trashed())
                                     <span class="fa fa-refresh"
-                                          data-bs-toggle="tooltip" data-bs-placement="right" title="بازیابی دسته"
-                                          onclick="restore_row('{{route('category.destroy',$category->id)}}','{{\Illuminate\Support\Facades\Session::token()}}','آیا از بازیابی این دسته مطئمن هستید؟')"></span>
+                                          data-bs-toggle="tooltip" data-bs-placement="right" title="بازیابی محصول"
+                                          onclick="restore_row('{{route('product.destroy',$product->id)}}','{{\Illuminate\Support\Facades\Session::token()}}','آیا از بازیابی این محصول مطئمن هستید؟')"></span>
                                 @endif
 
-                                @if(!$category->trashed())
+                                @if(!$product->trashed())
 
                                     <span class="fa fa-remove"
-                                          data-bs-toggle="tooltip" data-bs-placement="right" title="حذف دسته"
-                                          onclick="delete_row('{{route('category.destroy',$category->id)}}','{{\Illuminate\Support\Facades\Session::token()}}','آیا از حذف این دسته برای انتقال به سطل زباله مطئمن هستید؟')"></span>
+                                          data-bs-toggle="tooltip" data-bs-placement="right" title="حذف محصول"
+                                          onclick="delete_row('{{route('product.destroy',$product->id)}}','{{\Illuminate\Support\Facades\Session::token()}}','آیا از حذف این محصول برای انتقال به سطل زباله مطئمن هستید؟')"></span>
                                 @else
                                     <span class="fa fa-remove"
-                                          data-bs-toggle="tooltip" data-bs-placement="right" title="حذف دسته"
-                                          onclick="delete_row('{{route('category.destroy',$category->id)}}','{{\Illuminate\Support\Facades\Session::token()}}','آیا از حذف این دسته برای همیشه مطئمن هستید؟')"></span>
+                                          data-bs-toggle="tooltip" data-bs-placement="right" title="حذف محصول"
+                                          onclick="delete_row('{{route('product.destroy',$product->id)}}','{{\Illuminate\Support\Facades\Session::token()}}','آیا از حذف این محصول برای همیشه مطئمن هستید؟')"></span>
                                 @endif
                             </td>
                         </tr>
 
                     @endforeach
 
-                    @if(sizeof($categories)===0)
+                    @if(sizeof($products)===0)
                         <tr>
                             <td colspan="5">رکوردی برای نمایش وجود ندارد</td>
                         </tr>
@@ -93,7 +106,7 @@
                 </table>
 
             </form>
-            {{$categories->links()}}
+            {{$products->links()}}
         </div>
     </div>
 @endsection

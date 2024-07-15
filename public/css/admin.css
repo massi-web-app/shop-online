@@ -469,3 +469,9 @@ table tr td {
     font-size: 12px;
     color: red;
 }
+
+.product_image{
+    width: 200px;
+    height: 220px;
+
+}

@@ -14,6 +14,7 @@
         <div class="panel_content">
             {!! Form::model($product,['url' => route('product.update',$product->id),'files'=>true]) !!}
 
+            {{method_field('put')}}
             <div class="mb-3 form-group">
                 {{ Form::label('title','نام محصول :',['class'=>'form-label form-label-admin '])}}
                 {{ Form::text('title',null,['class'=>'form-control total_with_input '])}}
@@ -63,11 +64,11 @@
                         <label for="product_color_id" class="form-label">انتخاب رنگ محصول</label>
                         <select name="product_color_id[]" class="total_with_input form-select" data-live-search="true"
                                 multiple>
-                            <option value="-1" >لطفا رنگ های محصول را انتخاب کنید</option>
+                            <option value="-1">لطفا رنگ های محصول را انتخاب کنید</option>
                             @foreach($colors as $color)
                                 <option value="{{$color->id}}"
                                         @if(array_key_exists($color->id,$product_colors))
-                                            selected="selected"
+                                        selected="selected"
                                         @endif
                                         data-content="<span style='background:{{$color->code}}'>{{$color->name}}</span>">{{$color->name}}</option>
                             @endforeach
@@ -89,10 +90,11 @@
                 </div>
                 <div class="col-12 col-md-6">
                     <div class="choice_pic_box">
-                        <span class="title">انتخاب تصویر محصول</span>
+                        <span class="title" onclick="select_file()" >انتخاب تصویر محصول</span>
                         <input type="file" name="image_url" id="image" style="display: none;"
                                onchange="loadFile(event)">
-                        <img src="/files/images/pic_1.png" alt="select image" class="output_image"
+
+                        <img src="{{asset('files/product/'.$product->image_url)}}" alt="select image" class="output_image"
                              onclick="select_file()" id="output_image" width="150px">
                     </div>
                 </div>
@@ -107,7 +109,29 @@
                     </div>
                     <input type="hidden" name="keywords" id="keywords" value="{{$product->keywords}}">
                 </div>
-                <div id="tag_box"></div>
+                <div id="tag_box">
+                    @php
+                        $keywords = $product->keywords;
+                        $keywords=explode(',',$keywords);
+                        $counter=1;
+
+                    @endphp
+
+                    @if(is_array($keywords))
+                        @foreach($keywords as $key=>$keyword)
+                            @if(!empty($keyword))
+                                <div class="tag_div" id="tag_div_{{$counter}}">
+                                    <span class="fa fa-remove" onclick="remove_tag('{{$counter}}','{{$keyword}}')">
+                                        {{$keyword}}
+                                    </span>
+                                </div>
+                                @php $counter++; @endphp
+                            @endif
+
+                        @endforeach
+                    @endif
+
+                </div>
             </div>
 
             <div class="mb-3">
@@ -119,7 +143,7 @@
             </div>
 
 
-            <button class="btn btn-success">ثبت محصول</button>
+            <button class="btn btn-primary">ویرایش محصول</button>
 
             {!! Form::close() !!}
         </div>

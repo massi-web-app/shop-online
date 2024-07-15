@@ -99,7 +99,7 @@
 
                     @if(sizeof($products)===0)
                         <tr>
-                            <td colspan="5">رکوردی برای نمایش وجود ندارد</td>
+                            <td colspan="7">رکوردی برای نمایش وجود ندارد</td>
                         </tr>
                     @endif
                     </tbody>

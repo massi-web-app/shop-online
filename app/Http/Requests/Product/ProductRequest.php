@@ -37,7 +37,7 @@ class ProductRequest extends FormRequest
             'description' => 'required|max:150',
             'product_color_id' => 'required|array',
             'product_color_id.*' => 'exists:colors,id',
-            'image_url' => 'required|image|max:1024'
+            'image_url' => 'nullable|image|max:1024'
         ];
     }
 

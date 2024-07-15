@@ -2,11 +2,11 @@
 
 namespace App\Repositories\Product;
 
-use App\Models\Category;
+use App\Models\Brand;
 use App\Models\Product;
 use App\Models\ProductColor;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class ProductRepository implements ProductRepositoryInterface
 {
@@ -18,46 +18,88 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function store(array $data): Model
     {
-        $product = Product::query()->create($data);
-
-        //todo:refactor set the product color
-        foreach ($data['product_color_id'] as $color_id){
-            ProductColor::query()->create([
-                'color_id'=>$color_id,
-                'product_id'=>$product->id,
-                'category_id'=>$product->category_id
-            ]);
-        }
-        return $product;
+        return Product::query()->create($data);
     }
 
     public function find(int $id)
     {
-        // TODO: Implement find() method.
+        return Product::query()->findOrFail($id);
     }
 
-    public function update(Product $product, array $data): bool
+    public function update(Product|Model $product, array $data): Product|Model
     {
-        // TODO: Implement update() method.
+        $product->update($data);
+        return $product;
     }
 
-    public function delete(int $categoryId): bool
+    public function updateProductColors(Model|Product $product, array $colors): void
     {
-        // TODO: Implement delete() method.
+        DB::table('product_color')->where('product_id', $product->id)->delete();
+        foreach ($colors as $color_id) {
+            ProductColor::query()->create([
+                'color_id' => $color_id,
+                'product_id' => $product->id,
+                'category_id' => $product->category_id
+            ]);
+        }
     }
 
     public function trashed(): array|\Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection
     {
-        return Category::onlyTrashed()->get();
+        return Product::onlyTrashed()->get();
     }
 
-    public function restore(Model|\Illuminate\Database\Eloquent\Collection|Builder|array|null $category): Model|\Illuminate\Database\Eloquent\Collection|Builder|array|null
+    public function withTrashed(int $id)
     {
-        // TODO: Implement restore() method.
+        return Product::query()->withTrashed()->findOrFail($id);
     }
+
 
     public function getStatus(): array
     {
         return Product::productStatus();
     }
+
+    public function delete(int $productId): bool
+    {
+        $product = $this->withTrashed($productId);
+        if ($product->deleted_at === null) {
+            $product->delete();
+            return true;
+        }
+        $product->forceDelete();
+        return true;
+    }
+
+
+    public function restore(int $productId): void
+    {
+        $product = $this->withTrashed($productId);
+        $product->restore();
+    }
+
+    public function remove_items(array $productIds): void
+    {
+        $product = Product::query()->withTrashed()->whereIn('id', $productIds)->get();
+
+        foreach ($product as $key => $value) {
+            if ($value->deleted_at === null) {
+                $value->delete();
+            } else {
+                $value->forceDelete();
+            }
+        }
+
+    }
+
+    public function restore_items(array $productsIds): void
+    {
+        $brands = Product::query()->onlyTrashed()->whereIn('id', $productsIds)->get();
+
+        foreach ($brands as $key => $value) {
+            $value->restore();
+        }
+    }
+
+
 }

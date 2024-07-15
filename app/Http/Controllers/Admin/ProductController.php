@@ -9,6 +9,7 @@ use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Color\ColorRepository;
 use App\Services\Category\Service\CategoryService;
 use App\Services\Product\Service\ProductService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class ProductController extends CustomController
@@ -22,8 +23,7 @@ class ProductController extends CustomController
     private BrandRepository $brandRepository;
     private CategoryRepository $categoryRepository;
 
-    public function __construct(ProductService  $productService, ColorRepository $colorRepository, CategoryRepository $categoryRepository,
-                                BrandRepository $brandRepository)
+    public function __construct(ProductService  $productService, ColorRepository $colorRepository, CategoryRepository $categoryRepository,BrandRepository $brandRepository)
     {
         $this->productService = $productService;
         $this->service = $productService;
@@ -66,8 +66,17 @@ class ProductController extends CustomController
         $colors = $this->colorRepository->list()->get();
         $brands = $brands + $this->brandRepository->list()->get()->pluck('name', 'id')->toArray();
         $categories = $this->categoryRepository->list()->get()->pluck('title', 'id')->toArray();
-        return view('product.edit', ['colors' => $colors, 'brands' => $brands, 'categories' => $categories,
+        return view('product.edit', [
+            'colors' => $colors, 'brands' => $brands, 'categories' => $categories,
             'status' => $status,'product'=>$product,'product_colors'=>$product_colors]);
     }
+
+
+    public function update(ProductRequest $request,int $productId): RedirectResponse
+    {
+        $this->productService->update($request,$productId);
+        return redirect()->route('product.index')->with('message','محصول مورد نظر با موفقیت ویرایش شد.');
+    }
+
 
 }

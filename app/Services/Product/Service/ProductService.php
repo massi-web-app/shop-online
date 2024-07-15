@@ -4,7 +4,6 @@ namespace App\Services\Product\Service;
 
 use App\Helper\Helper;
 use App\Http\Requests\Product\ProductRequest;
-use App\Models\Product;
 use App\Repositories\Product\ProductRepository;
 use App\Services\Uploader\Uploader;
 use Illuminate\Http\Request;
@@ -58,16 +57,13 @@ class ProductService
             if (!empty($image)) {
                 $data['image_url'] = $image;
                 //todo:resolve thumbnails
-//            Helper::fit_image('files/products/'.$image,$image);
             }
-
-            $this->productRepository->store($data);
-            return true;
+            $product =$this->productRepository->store($data);
+            $this->productRepository->updateProductColors($product,$request->get('product_color_id'));
+            return $product;
         } catch (\Exception $exception) {
             return false;
         }
-
-
     }
 
     public function countTrashed(): int
@@ -82,7 +78,41 @@ class ProductService
 
     public function find(int $productId)
     {
-        return Product::query()->findOrFail($productId);
+        return $this->productRepository->find($productId);
     }
+
+    public function update(ProductRequest $request, int $productId)
+    {
+        $product=$this->find($productId);
+        $image_url = $this->uploader->upload($request->file('image_url'), 'files/products');
+        if (!empty($image_url)) {
+            $this->uploader->removeFile('files/products', $product->image_url);
+            $product->image_url = $image_url;
+            $product->save();
+        }
+        $this->productRepository->update($product,$request->except(['image_url']));
+        $this->productRepository->updateProductColors($product,$request->get('product_color_id'));
+        return $product;
+    }
+
+    public function delete(int $productId)
+    {
+       return $this->productRepository->delete($productId);
+    }
+
+    public function restore(int $productId)
+    {
+        $this->productRepository->restore($productId);
+    }
+
+    public function removeItems($request){
+        $this->productRepository->remove_items($request->get('product_id'));
+    }
+
+    public function restoreItems($request)
+    {
+        $this->productRepository->restore_items($request->get('product_id'));
+    }
+
 
 }

@@ -15,13 +15,19 @@ interface ProductRepositoryInterface
 
     public function find(int $id);
 
-    public function update(Product $product, array $data): bool;
+    public function update(Product $product, array $data): Product|Model;
 
-    public function delete(int $categoryId): bool;
+    public function delete(int $productId): bool;
 
     public function trashed();
 
-    public function restore(Model|\Illuminate\Database\Eloquent\Collection|Builder|array|null $category): Model|\Illuminate\Database\Eloquent\Collection|Builder|array|null;
+    public function updateProductColors(Product|Model $product,array $colors):void;
+
+    public function restore(int $productId): void;
+
+    public function remove_items(array $productIds): void;
+
+    public function restore_items(array $productIds): void;
 
     public function getStatus(): array;
 

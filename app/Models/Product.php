@@ -52,10 +52,5 @@ class Product extends Model
         return null;
 
     }
-
-    public function getProductColorAttribute()
-    {
-        dd($this->productColors()->get());
-    }
     //endregion
 }

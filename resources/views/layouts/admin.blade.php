@@ -15,36 +15,7 @@
 
 <div class="container-fluid">
     <div class="page_sidebar">
-
-        <span class="fa fa-bars" id="sidebarToggle"></span>
-        <ul id="sidebar_menu">
-            <li>
-                <a href="#">
-                    <span class="fa fa-shopping-cart"></span>
-                    <span class="sidebar_menu_text">محصولات</span>
-                    <span class="fa fa-angle-left"></span>
-                </a>
-                <div class="child_menu">
-                    <a href="">مدیریت محصولات</a>
-                    <a href="">افزودن محصول</a>
-                    <a href="">مدیریت دسته ها</a>
-                </div>
-            </li>
-
-            <li>
-                <a href="#">
-                    <span class="fa fa-sliders"></span>
-                    <span class="sidebar_menu_text">مدیریت اسلایدرها</span>
-                    <span class="fa fa-angle-left"></span>
-                </a>
-                <div class="child_menu">
-                    <a href="">مدیریت اسلایدرها</a>
-                    <a href="">افزودن اسلایدر جدید</a>
-                </div>
-            </li>
-
-
-        </ul>
+        @include('include.sidebar')
     </div>
     <div class="page_content">
         <div class="content_box" id="app">

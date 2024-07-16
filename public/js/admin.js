@@ -3,20 +3,21 @@ let delete_url = null;
 let token = null;
 let send_array_data = false;
 let _method = 'DELETE';
+
 $("#sidebar_menu li").click(function () {
     if (!$(this).hasClass("active")) {
         $("#sidebar_menu li").removeClass('active');
         $(this).addClass('active');
-        $(".child_menu").slideUp();
+        $(".child_menu").hide(200);
         $(".fa-angle-left").removeClass("active");
         $(".fa-angle-left", this).addClass("active");
         if (!toggle) {
-            $(".child_menu", this).slideDown(500);
+            $(".child_menu", this).show(500);
         } else {
-            $(".child_menu", this).show();
+            $(".child_menu", this).show(500);
         }
     } else if (toggle) {
-        $(".child_menu").slideUp();
+        $(".child_menu").hide(200);
         $(".child_menu", this).show();
     }
 
@@ -46,6 +47,15 @@ $(window).resize(function () {
 
 $(document).ready(function () {
     set_sidebar_width();
+
+    const url=window.location.href.split('?')[0];
+
+    const tagSidebar=$(`#sidebar_menu a[href="${url}"]`);
+    tagSidebar.parent().parent().addClass('active');
+    tagSidebar.parent().parent().find("a .fa-angle-left").addClass('fa-angle-down');
+    tagSidebar.parent().parent().find("a .fa-angle-left").removeClass('fa-angle-left');
+    tagSidebar.parent().parent().find(".child_menu").show();
+
 });
 
 function set_sidebar_width() {

@@ -33,11 +33,11 @@ class BrandController extends CustomController
 
     public function index(Request $request)
     {
-        $categories = $this->brandService->list($request);
-        $paginate = CategoryService::$paginate;
-        $trashed_category_count = $this->brandService->countTrashed();
-        return view('brand.index', ['brands' => $categories, 'paginate' => $paginate,
-            'trashed_brand_count' => $trashed_category_count, 'request' => $request]);
+        $brands = $this->brandService->list($request);
+        $paginate = BrandService::$paginate;
+        $trashed_brand_count = $this->brandService->countTrashed();
+        return view('brand.index', ['brands' => $brands, 'paginate' => $paginate,
+            'trashed_brand_count' => $trashed_brand_count, 'request' => $request]);
     }
 
     public function create()

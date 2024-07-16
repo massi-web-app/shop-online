@@ -44,6 +44,10 @@ Route::prefix('/admin')->group(function () {
     \App\Helper\Helper::generateCrudUrl('product',
         \App\Http\Controllers\Admin\ProductController::class,true);
     //endregion route categories
+
+    //region route warranties
+    \App\Helper\Helper::generateCrudUrl('warranty',\App\Http\Controllers\Admin\WarrantyController::class);
+    //endregion route categories
 });
 
 

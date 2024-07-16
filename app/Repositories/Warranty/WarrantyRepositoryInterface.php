@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Repositories\Brand;
+namespace App\Repositories\Warranty;
 
 use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Warranty;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
-interface BrandRepositoryInterface
+interface WarrantyRepositoryInterface
 {
 
     public function list(string $trashed=null);
@@ -20,12 +21,18 @@ interface BrandRepositoryInterface
 
     public function find(int $id);
 
-    public function update(Brand $brand,array $data):bool;
+    public function withTrashed(int $id);
 
-    public function delete(int $brandId):bool;
+    public function update(Warranty|Model $warranty,array $data):bool;
+
+    public function delete(int $warrantyId):bool;
 
     public function trashed();
 
-    public function restore(Model|\Illuminate\Database\Eloquent\Collection|Builder|array|null $brand):Model|\Illuminate\Database\Eloquent\Collection|Builder|array|null;
+    public function restore(Warranty|Model $warranty):Warranty;
+
+    public function remove_items(array $warrantyIds);
+
+    public function restore_items(array $warrantyIds);
 
 }

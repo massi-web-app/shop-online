@@ -3,11 +3,14 @@
 namespace App\Helper;
 
 use App\Lib\Jdf;
+use App\Services\Uploader\Uploader;
 use Illuminate\Support\Facades\Route;
 use Spatie\Image\Image;
 
 class Helper
 {
+
+
     public static function generateQueryString(string $queryString, string $text): string
     {
         if ($queryString == '?') {
@@ -60,6 +63,12 @@ class Helper
             return true;
         }
         return false;
+    }
+
+    public static function removeFile($path,$model)
+    {
+        $uploader=new Uploader();
+        $uploader->removeFile($path, $model->image_url);
     }
 
 }

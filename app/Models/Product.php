@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helper\Helper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -50,6 +51,19 @@ class Product extends Model
             return $list_status[$this->status];
         }
         return null;
+
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($product){
+            if ($product->isForceDeleting()){
+                Helper::removeFile('files/products',$product);
+
+            }
+        });
 
     }
     //endregion

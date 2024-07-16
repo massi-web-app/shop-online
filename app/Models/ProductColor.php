@@ -12,4 +12,9 @@ class ProductColor extends Model
     public $timestamps = false;
     protected $table = 'product_color';
     protected $guarded = [];
+
+    public function getColor()
+    {
+        return $this->belongsTo(Color::class, 'color_id', 'id');
+    }
 }

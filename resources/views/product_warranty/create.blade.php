@@ -11,8 +11,8 @@
 
         <div class="header">افزودن تنوع قیمت جدید برای - {{$product->title}}</div>
 
-        @dump($errors)
         <div class="panel_content">
+            @include('include.warning')
             {!! Form::open(['url' => route('product_warranties.store','?product_id='.$product->id)]) !!}
 
             <div class="mb-3 form-group">

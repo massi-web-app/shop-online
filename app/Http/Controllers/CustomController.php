@@ -14,25 +14,37 @@ class CustomController extends BaseController
 
     public function destroy(int $modelId): RedirectResponse
     {
+        $params=['trashed' => 'true'];
+        property_exists($this,'queryString') ?
+            $params[$this->queryString['params']]=$this->queryString['value'] : '';
         $this->service->delete($modelId);
-        return redirect()->route($this->route_params.'.index',['trashed'=>'true'])->with('message', 'عملیات مورد نظر با موفقیت انجام شد.');
+        return redirect()->route($this->route_params . '.index', $params)->with('message', 'عملیات مورد نظر با موفقیت انجام شد.');
     }
 
     public function removeItems(Request $request)
     {
+        $params=['trashed' => 'true'];
+
+        property_exists($this,'queryString') ?
+            $params[$this->queryString['params']]=$this->queryString['value'] : '';
+
+
         $this->service->removeItems($request);
-        return redirect()->route($this->route_params.'.index',['trashed'=>'true'])->with('message', 'عملیات مورد نظر با موفقیت انجام شد.');
+        return redirect()->route($this->route_params . '.index', $params)->with('message', 'عملیات مورد نظر با موفقیت انجام شد.');
     }
 
     public function restoreItems(Request $request)
     {
+        $params=['trashed' => 'true'];
+        property_exists($this,'queryString') ?
+            $params[$this->queryString['params']]=$this->queryString['value'] : '';
         $this->service->restoreItems($request);
-        return redirect()->route($this->route_params.'.index',['trashed'=>'true'])->with('message', 'عملیات مورد نظر با موفقیت انجام شد.');
+        return redirect()->route($this->route_params . '.index', $params)->with('message', 'عملیات مورد نظر با موفقیت انجام شد.');
     }
 
     public function restore(int $categoryId)
     {
         $this->service->restore($categoryId);
-        return redirect()->route($this->route_params.'.index')->with('message', 'دسته مورد نظر با موفقیت بازیابی شد.');
+        return redirect()->route($this->route_params . '.index')->with('message', 'دسته مورد نظر با موفقیت بازیابی شد.');
     }
 }

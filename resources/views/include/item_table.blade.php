@@ -4,18 +4,28 @@
         گزینه ها
     </button>
 
+    <?php
+
+    $create_param = [];
+    $trash_param = ['trashed'=>'true'];
+    if (isset($queryString) && is_array($queryString)) {
+        $create_param[$queryString['params']] = $queryString['value'];
+        $trash_param[$queryString['params']]= $queryString['value'];
+    }
+    ?>
+
     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 
-        <a class="dropdown-item" href="{{route($route.'.index')}}">
+        <a class="dropdown-item" href="{{route($route.'.index',$create_param)}}">
             <span class="fa fa-list "></span>
             <span>مشاهده {{$title}} ها </span>
         </a>
 
-        <a class="dropdown-item" href="{{route($route.'.create')}}">
+        <a class="dropdown-item" href="{{route($route.'.create',$create_param)}}">
             <span class="fa fa-pencil"></span>
             <span>افزودن {{$title}} جدید</span>
         </a>
-        <a class="dropdown-item" href="{{route($route.'.index',['trashed'=>'true'])}}">
+        <a class="dropdown-item" href="{{route($route.'.index',$trash_param)}}">
             <span class="fa fa-trash"></span>
             <span>سطل زباله ({{$trashed_count}})</span>
         </a>

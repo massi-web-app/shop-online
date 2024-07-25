@@ -4,8 +4,11 @@ namespace App\Services\Product\Service;
 
 use App\Helper\Helper;
 use App\Http\Requests\Product\ProductRequest;
+use App\Models\Product;
 use App\Repositories\Product\ProductRepository;
 use App\Services\Uploader\Uploader;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class ProductService

@@ -480,3 +480,17 @@ table tr td {
     text-align: left;
     direction: ltr;
 }
+
+.color_td{
+    font-size: 14px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+
+#productWarranties .alert{
+    padding: 8px;
+    margin-top: 5px;
+    display: inline-block;
+    border:1px solid #ccc;
+}

@@ -2,11 +2,11 @@
 
 namespace App\Repositories\Product;
 
-use App\Models\Brand;
 use App\Models\Product;
 use App\Models\ProductColor;
+use App\Models\ProductWarranty;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Collection;
 
 class ProductRepository implements ProductRepositoryInterface
 {
@@ -34,7 +34,7 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function updateProductColors(Model|Product $product, array $colors): void
     {
-        DB::table('product_color')->where('product_id', $product->id)->delete();
+        ProductColor::query()->where('product_id', $product->id)->delete();
         foreach ($colors as $color_id) {
             ProductColor::query()->create([
                 'color_id' => $color_id,
@@ -44,7 +44,7 @@ class ProductRepository implements ProductRepositoryInterface
         }
     }
 
-    public function trashed(): array|\Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection
+    public function trashed(): array|\Illuminate\Database\Eloquent\Collection|Collection
     {
         return Product::onlyTrashed()->get();
     }
@@ -92,14 +92,16 @@ class ProductRepository implements ProductRepositoryInterface
 
     }
 
-    public function restore_items(array $productsIds): void
+    public function restore_items(array $productIds): void
     {
-        $brands = Product::query()->onlyTrashed()->whereIn('id', $productsIds)->get();
-
+        $brands = Product::query()->onlyTrashed()->whereIn('id', $productIds)->get();
         foreach ($brands as $key => $value) {
             $value->restore();
         }
     }
 
+    public function update_product_price(Model|Collection|Product $product): void
+    {
 
+    }
 }

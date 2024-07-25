@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\ProductWarranty;
 
+use App\Rules\CheckProductWarrantyPrice;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProductWarrantyRequest extends FormRequest
@@ -22,8 +23,8 @@ class ProductWarrantyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'warranty_id' => ['required', 'exists:warranties,id'],
             'color_id' => ['required', 'exists:colors,id'],
+            'warranty_id' => ['required', 'exists:warranties,id'],
             'real_product_price' => ['required', 'numeric'],
             'sale_product_price' => ['required', 'numeric'],
             'product_number' => ['nullable', 'numeric'],

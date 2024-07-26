@@ -31,8 +31,4 @@ interface ProductRepositoryInterface
     public function restore_items(array $productIds): void;
 
     public function getStatus(): array;
-
-    public function update_product_price(Product|Model|Collection $product): void;
-
-
 }

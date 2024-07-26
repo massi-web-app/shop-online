@@ -21,10 +21,11 @@ class ProductWarrantyController extends CustomController
     private ProductService $productService;
     private ProductPriceService $productPriceService;
 
-    public function __construct(Request $request, ProductWarrantyService $productWarrantyService, ProductRepository $productRepository, ProductService $productService, ProductPriceService $productPriceService)
+    public function __construct(Request $request, ProductWarrantyService $productWarrantyService, ProductService $productService, ProductPriceService $productPriceService)
     {
+
         $product_id = (int)$request->get('product_id');
-        $this->product = $productRepository->find($product_id);
+        $this->product = $productService->find($product_id);
         $this->service = $productWarrantyService;
         $this->productWarrantyService = $productWarrantyService;
         $this->productService = $productService;

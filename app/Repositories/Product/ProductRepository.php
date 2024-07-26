@@ -100,8 +100,4 @@ class ProductRepository implements ProductRepositoryInterface
         }
     }
 
-    public function update_product_price(Model|Collection|Product $product): void
-    {
-
-    }
 }

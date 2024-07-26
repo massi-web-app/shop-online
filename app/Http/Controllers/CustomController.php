@@ -42,9 +42,12 @@ class CustomController extends BaseController
         return redirect()->route($this->route_params . '.index', $params)->with('message', 'عملیات مورد نظر با موفقیت انجام شد.');
     }
 
-    public function restore(int $categoryId)
+    public function restore(int $modelId)
     {
-        $this->service->restore($categoryId);
-        return redirect()->route($this->route_params . '.index')->with('message', 'دسته مورد نظر با موفقیت بازیابی شد.');
+        $params=[];
+        property_exists($this,'queryString') ?
+            $params[$this->queryString['params']]=$this->queryString['value'] : '';
+        $this->service->restore($modelId);
+        return redirect()->route($this->route_params . '.index',$params)->with('message', 'عملیات مورد نظر با موفقیت بازیابی شد.');
     }
 }

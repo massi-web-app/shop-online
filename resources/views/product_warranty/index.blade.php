@@ -3,7 +3,7 @@
 @section('content')
 
     @include('include.breadcrumb',['data'=>[
-    ['title'=>'مدیریت تتوع قیمت ها','route'=>route('product_warranties.index','product_id='.$product->id)]
+    ['title'=>'مدیریت تنوع قیمت ها','route'=>route('product_warranties.index','product_id='.$product->id)]
 ]])
 
     <div class="panel">
@@ -78,8 +78,7 @@
                             </td>
                             <td>
                                 @if(!$productWarranty->trashed())
-                                    <a href="{{route('product_warranties.edit',$productWarranty->id).'?product_id='.$product->id}}">Edit
-
+                                    <a href="{{route('product_warranties.edit',$productWarranty->id).'?product_id='.$product->id}}">
                                         <span data-bs-toggle="tooltip" data-bs-placement="right"
                                               title="ویرایش تنوع قیمت" class="fa fa-edit"></span>
                                     </a>

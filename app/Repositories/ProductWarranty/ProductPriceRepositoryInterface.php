@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 interface ProductPriceRepositoryInterface
 {
-    public function add_min_product_price(Model|ProductWarranty|Collection $productWarranty): ProductWarranty;
+    public function add_min_product_price(Model|ProductWarranty|Collection $productWarranty);
 
     public function update_product_price(Model|Product|Collection $product): Product;
 }

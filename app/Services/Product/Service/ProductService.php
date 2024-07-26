@@ -10,6 +10,7 @@ use App\Services\Uploader\Uploader;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductService
 {
@@ -115,6 +116,53 @@ class ProductService
     public function restoreItems($request)
     {
         $this->productRepository->restore_items($request->get('product_id'));
+    }
+
+    public function uploadGallery(int $productId, Request $request)
+    {
+        $product=$this->productRepository->find($productId);
+
+        if ($product){
+            $count=DB::table('product_galleries')
+                ->where('product_id',$productId)
+                ->count();
+            $image_url=$this->uploader->upload($request->file('file'),'files/gallery','image_'.$productId.rand(1,100));
+
+            if (!empty($image_url)){
+                $count++;
+                DB::table('product_galleries')
+                    ->insert([
+                        'product_id'=>$productId,
+                        'image_url'=>$image_url,
+                        'position'=>$count
+                    ]);
+                return 1;
+            }
+            return 0;
+        }
+        return 0;
+
+    }
+
+    public function listGalleries(int $productId): Collection|array
+    {
+        return $this->productRepository->listGalleries($productId);
+
+    }
+
+    public function removeGalleryFromGallery(int $imageId): bool
+    {
+        try{
+            $image=$this->productRepository->findGallery($imageId);
+            $image_url=$image->image_url;
+            $image->delete();
+            $this->uploader->removeFile('files/gallery',$image_url);
+            return true;
+        }catch (\Exception $exception){
+            dd($exception);
+            return false;
+        }
+
     }
 
 

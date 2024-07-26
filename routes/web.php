@@ -52,6 +52,24 @@ Route::prefix('/admin')->group(function () {
     //region route product warranty
     \App\Helper\Helper::generateCrudUrl('product_warranties',\App\Http\Controllers\Admin\ProductWarrantyController::class);
     //endregion route categories
+
+
+    Route::get('/product/gallery/{id}',[
+        \App\Http\Controllers\Admin\ProductController::class,
+        'gallery'
+    ])->name('product.gallery');
+
+    Route::post('/product/gallery/upload/{id}',[
+        \App\Http\Controllers\Admin\ProductController::class,
+        'gallerySave'
+    ])->name('product.gallery.upload');
+
+    Route::delete('/product/gallery/upload/{id}',[
+        \App\Http\Controllers\Admin\ProductController::class,
+        'removeImageFromGallery'
+    ])->name('product.gallery.remove');
+
+
 });
 
 

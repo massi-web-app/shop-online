@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{asset('/css/app.css')}}">
     <link rel="stylesheet" href="{{asset('/css/admin.css')}}">
     <link rel="stylesheet" href="{{asset('/css/bootstrap-select.min.css')}}">
-
+    @yield('head')
 </head>
 <body>
 

@@ -494,3 +494,21 @@ table tr td {
     display: inline-block;
     border:1px solid #ccc;
 }
+
+
+.dropzone{
+    border:2px dashed #68a5ff !important;
+    border-radius: 3px !important;
+    background: #fff;
+}
+
+
+#table-gallery{
+    margin-top: 40px;
+}
+
+#table-gallery img{
+    width: 220px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

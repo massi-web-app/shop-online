@@ -4,7 +4,7 @@ namespace App\Repositories\Product;
 
 use App\Models\Product;
 use App\Models\ProductColor;
-use App\Models\ProductWarranty;
+use App\Models\ProductGallery;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
@@ -98,6 +98,19 @@ class ProductRepository implements ProductRepositoryInterface
         foreach ($brands as $key => $value) {
             $value->restore();
         }
+    }
+
+    public function listGalleries(int $productId)
+    {
+        return ProductGallery::query()->where([
+           'product_id'=>$productId
+        ])->orderBy('position','ASC')->get();
+
+    }
+
+    public function findGallery(int $imageId)
+    {
+        return ProductGallery::query()->findOrFail($imageId);
     }
 
 }

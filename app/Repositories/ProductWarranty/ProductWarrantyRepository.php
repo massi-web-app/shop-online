@@ -101,4 +101,16 @@ class ProductWarrantyRepository implements ProductWarrantyRepositoryInterface
         return $productWarranty;
     }
 
+    public function find(int $productWarrantyId)
+    {
+        return ProductWarranty::query()->findOrFail($productWarrantyId);
+    }
+
+    public function update(int $productWarrantyId, array $data)
+    {
+        $productWarranty=$this->find($productWarrantyId);
+        $productWarranty->update($data);
+        return $productWarranty;
+    }
+
 }

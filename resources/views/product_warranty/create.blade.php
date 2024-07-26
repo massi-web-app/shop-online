@@ -29,7 +29,7 @@
                 <label for="product_color_id" class="form-label form-label-admin">انتخاب رنگ </label>
                 <select name="color_id" class="form-label form-label-admin form-select" data-live-search="true">
                     @foreach($product_colors as $product_color)
-                        <option value="{{$product_color->getColor->id}}"
+                        <option value="{{$product_color->color_id}}"
                                 data-content="<span style='background:{{$product_color->getColor->code}}'>{{$product_color->getColor->name}}</span>">{{$product_color->getColor->name}}</option>
                     @endforeach
                 </select>

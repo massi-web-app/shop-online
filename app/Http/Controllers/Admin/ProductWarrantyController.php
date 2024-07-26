@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\CustomController;
 use App\Http\Requests\ProductWarranty\ProductWarrantyRequest;
-use App\Repositories\Product\ProductRepository;
 use App\Services\Product\Service\ProductService;
 use App\Services\ProductWarranty\ProductPriceService;
 use App\Services\ProductWarranty\ProductWarrantyService;
@@ -30,7 +29,7 @@ class ProductWarrantyController extends CustomController
         $this->productWarrantyService = $productWarrantyService;
         $this->productService = $productService;
         $this->productPriceService = $productPriceService;
-        $this->queryString = ['params'=>'product_id','value'=>$this->product->id];
+        $this->queryString = ['params' => 'product_id', 'value' => $this->product->id];
     }
 
     public function index(Request $request)
@@ -76,6 +75,28 @@ class ProductWarrantyController extends CustomController
         return redirect()->route('product_warranties.create', 'product_id=' . $this->product->id)
             ->withInput()
             ->with('warning', 'این تنوع قیمت با این مشخصات از قبل ثبت شده است.');
+    }
+
+
+    public function edit(int $productWarrantyId)
+    {
+        $productWarranty = $this->productWarrantyService->find($productWarrantyId);
+        $warranties = $this->productWarrantyService->listWarranties();
+        $product_colors = $this->productWarrantyService->listProductColor($this->product->id);
+        return view('product_warranty.edit', [
+            'warranties' => $warranties,
+            'product_colors' => $product_colors,
+            'product' => $this->product,
+            'productWarranty' => $productWarranty
+        ]);
+    }
+
+    public function update(int $productWarrantyId,ProductWarrantyRequest $productWarrantyRequest)
+    {
+        $this->productWarrantyService->update($productWarrantyId,$productWarrantyRequest,$this->product);
+        return redirect()->route('product_warranties.index', 'product_id=' . $this->product->id)
+            ->with('message', 'ویرایش تنوع قیمت با موفقیت انجام شد.');
 
     }
+
 }

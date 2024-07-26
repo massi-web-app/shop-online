@@ -4,6 +4,7 @@ namespace App\Services\ProductWarranty;
 
 use App\Helper\Helper;
 use App\Http\Requests\ProductWarranty\ProductWarrantyRequest;
+use App\Models\Product;
 use App\Models\ProductColor;
 use App\Models\ProductWarranty;
 use App\Repositories\Product\ProductRepository;
@@ -11,6 +12,7 @@ use App\Repositories\ProductColor\ProductColorRepository;
 use App\Repositories\ProductWarranty\ProductWarrantyRepository;
 use App\Repositories\Warranty\WarrantyRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -115,4 +117,19 @@ class ProductWarrantyService
         $this->productPriceService->add_min_product_price($productWarranty);
         $this->productPriceService->update_product_price($product);
     }
+
+    public function find(int $productWarrantyId)
+    {
+        return $this->productWarrantyRepository->find($productWarrantyId);
+    }
+
+    public function update(int $productWarrantyId, ProductWarrantyRequest $productWarrantyRequest, Model|Collection|Builder|array|null $product)
+    {
+        $productWarranty=$this->productWarrantyRepository->update($productWarrantyId,$productWarrantyRequest->all());
+        $this->productPriceService->add_min_product_price($productWarranty);
+        $this->productPriceService->update_product_price($product);
+        return $productWarranty;
+    }
+
+
 }

@@ -5,7 +5,8 @@
  */
 
 import './bootstrap';
-import '../../../node_modules/bootstrap-select/dist/js/bootstrap-select';
+
+import 'jquery-ui/ui/widgets/sortable'
 
 import { createApp } from 'vue';
 

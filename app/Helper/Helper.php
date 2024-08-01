@@ -4,6 +4,7 @@ namespace App\Helper;
 
 use App\Lib\Jdf;
 use App\Services\Uploader\Uploader;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Spatie\Image\Image;
 
@@ -50,7 +51,7 @@ class Helper
 
     public static function isTrashed($request): bool
     {
-        if (array_key_exists('trashed', $request->all()) && $request['trashed'] === 'true') {
+        if (array_key_exists('trashed', $request->all()) && $request['trashed'] == 'true') {
             return true;
         }
         return false;
@@ -65,10 +66,10 @@ class Helper
         return false;
     }
 
-    public static function removeFile($path,$model)
+    public static function removeFile($directory,$image_url)
     {
-        $uploader=new Uploader();
-        $uploader->removeFile($path, $model->image_url);
+        $uploader = new Uploader();
+        $uploader->removeFile($directory, $image_url);
     }
 
 }

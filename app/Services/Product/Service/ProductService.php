@@ -4,11 +4,9 @@ namespace App\Services\Product\Service;
 
 use App\Helper\Helper;
 use App\Http\Requests\Product\ProductRequest;
-use App\Models\Product;
 use App\Repositories\Product\ProductRepository;
 use App\Services\Uploader\Uploader;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -62,8 +60,8 @@ class ProductService
                 $data['image_url'] = $image;
                 //todo:resolve thumbnails
             }
-            $product =$this->productRepository->store($data);
-            $this->productRepository->updateProductColors($product,$request->get('product_color_id'));
+            $product = $this->productRepository->store($data);
+            $this->productRepository->updateProductColors($product, $request->get('product_color_id'));
             return $product;
         } catch (\Exception $exception) {
             return false;
@@ -87,21 +85,21 @@ class ProductService
 
     public function update(ProductRequest $request, int $productId)
     {
-        $product=$this->find($productId);
+        $product = $this->find($productId);
         $image_url = $this->uploader->upload($request->file('image_url'), 'files/products');
         if (!empty($image_url)) {
             $this->uploader->removeFile('files/products', $product->image_url);
             $product->image_url = $image_url;
             $product->save();
         }
-        $this->productRepository->update($product,$request->except(['image_url']));
-        $this->productRepository->updateProductColors($product,$request->get('product_color_id'));
+        $this->productRepository->update($product, $request->except(['image_url']));
+        $this->productRepository->updateProductColors($product, $request->get('product_color_id'));
         return $product;
     }
 
     public function delete(int $productId)
     {
-       return $this->productRepository->delete($productId);
+        return $this->productRepository->delete($productId);
     }
 
     public function restore(int $productId)
@@ -109,7 +107,8 @@ class ProductService
         $this->productRepository->restore($productId);
     }
 
-    public function removeItems($request){
+    public function removeItems($request)
+    {
         $this->productRepository->remove_items($request->get('product_id'));
     }
 
@@ -120,21 +119,21 @@ class ProductService
 
     public function uploadGallery(int $productId, Request $request)
     {
-        $product=$this->productRepository->find($productId);
+        $product = $this->productRepository->find($productId);
 
-        if ($product){
-            $count=DB::table('product_galleries')
-                ->where('product_id',$productId)
+        if ($product) {
+            $count = DB::table('product_galleries')
+                ->where('product_id', $productId)
                 ->count();
-            $image_url=$this->uploader->upload($request->file('file'),'files/gallery','image_'.$productId.rand(1,100));
+            $image_url = $this->uploader->upload($request->file('file'), 'files/gallery', 'image_' . $productId . rand(1, 100));
 
-            if (!empty($image_url)){
+            if (!empty($image_url)) {
                 $count++;
                 DB::table('product_galleries')
                     ->insert([
-                        'product_id'=>$productId,
-                        'image_url'=>$image_url,
-                        'position'=>$count
+                        'product_id' => $productId,
+                        'image_url' => $image_url,
+                        'position' => $count
                     ]);
                 return 1;
             }
@@ -152,17 +151,29 @@ class ProductService
 
     public function removeGalleryFromGallery(int $imageId): bool
     {
-        try{
-            $image=$this->productRepository->findGallery($imageId);
-            $image_url=$image->image_url;
+        try {
+            $image = $this->productRepository->findGallery($imageId);
+            $image_url = $image->image_url;
             $image->delete();
-            $this->uploader->removeFile('files/gallery',$image_url);
+            $this->uploader->removeFile('files/gallery', $image_url);
             return true;
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             dd($exception);
             return false;
         }
 
+    }
+
+    public function sortGallery(array $parameters):string
+    {
+        $position = 1;
+        foreach ($parameters as $key => $parameter) {
+            if (!empty($parameter)) {
+                DB::table('product_galleries')->where('id', $parameter)->update(['position' => $position]);
+                $position++;
+            }
+        }
+        return 'ok';
     }
 
 

@@ -54,7 +54,6 @@ class BrandService
     public function removeItems(Request $request)
     {
         $this->brandRepository->remove_items($request->get('brand_id'));
-
     }
 
     public function restoreItems(Request $request)
@@ -64,8 +63,8 @@ class BrandService
 
     public function restore(int $categoryId)
     {
-        $category = $this->brandRepository->withTrashed($categoryId);
-        $this->brandRepository->restore($category);
+        $brand = $this->brandRepository->withTrashed($categoryId);
+        $this->brandRepository->restore($brand);
         return true;
     }
 

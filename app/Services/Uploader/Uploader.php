@@ -28,7 +28,6 @@ class Uploader implements UploaderInterface
 
     }
 
-
     public function generateNewFileName($extension): string
     {
         return time() . '.' . $extension;

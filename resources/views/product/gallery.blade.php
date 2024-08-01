@@ -30,28 +30,28 @@
 
             <table class="table table-bordered table-striped" id="table-gallery">
                 <thead>
-                    <tr>
-                        <th>ردیف</th>
-                        <th>تصویر</th>
-                        <th>عملیات</th>
-                    </tr>
+                <tr>
+                    <th>ردیف</th>
+                    <th>تصویر</th>
+                    <th>عملیات</th>
+                </tr>
                 </thead>
                 <tbody>
-                    @php($i=1)
-                    @foreach($galleries as $key=>$gallery)
-                        <tr>
-                            <td>{{$i}}</td>
-                            <td>
-                                <img src="{{asset('files/gallery/'.$gallery->image_url)}}" alt="">
-                            </td>
-                            <td>
+                @php($i=1)
+                @foreach($galleries as $key=>$gallery)
+                    <tr id="{{$gallery->id}}">
+                        <td>{{$i}}</td>
+                        <td>
+                            <img src="{{asset('files/gallery/'.$gallery->image_url)}}" alt="">
+                        </td>
+                        <td>
                                  <span class="fa fa-remove"
                                        data-bs-toggle="tooltip" data-bs-placement="right" title="حذف تصویر"
                                        onclick="delete_row('{{route('product.gallery.remove',$gallery->id)}}','{{\Illuminate\Support\Facades\Session::token()}}','آیا از حذف این تصویر برای انتقال به سطل زباله مطئمن هستید؟')"></span>
-                            </td>
-                        </tr>
-                        @php($i++)
-                    @endforeach
+                        </td>
+                    </tr>
+                    @php($i++)
+                @endforeach
                 </tbody>
             </table>
 
@@ -63,6 +63,7 @@
 
 @section('js')
     <script type="text/javascript" src="{{asset('/dropzone/js/dropzone.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('/js/jquery-ui.js')}}"></script>
     <script>
         Dropzone.options.uploadFile = {
             acceptedFiles: '.png,.jpg,.jpeg',
@@ -85,5 +86,33 @@
                 })
             }
         }
+
+        const $sortable = $("#table-gallery > tbody");
+
+        $sortable.sortable({
+
+            stop: function (event, ui) {
+                $("#loading_box").show();
+
+                const parameters = $sortable.sortable("toArray");
+                $.ajaxSetup({
+                    headers: {
+                        'x-csrf-token': $("meta[name='csrf-token']").attr('content')
+                    }
+                })
+
+                $.ajax({
+                    url: "{{route('product.gallery.sort',$product->id)}}",
+                    type: 'POST',
+                    data:'parameters='+parameters,
+                    success:function (data){
+                        $("#loading_box").hide();
+                    }
+
+                })
+                console.log(parameters);
+            }
+
+        })
     </script>
 @endsection

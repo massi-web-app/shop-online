@@ -79,23 +79,29 @@ class ProductController extends CustomController
 
     public function gallery(int $productId)
     {
-        $galleries=$this->productService->listGalleries($productId);
+        $galleries = $this->productService->listGalleries($productId);
         $product = $this->productService->find($productId);
-        return view('product.gallery', ['product' => $product,'galleries'=>$galleries]);
+        return view('product.gallery', ['product' => $product, 'galleries' => $galleries]);
 
     }
 
-    public function gallerySave(int $productId,Request $request)
+    public function gallerySave(int $productId, Request $request)
     {
-        return $this->productService->uploadGallery($productId,$request);
+        return $this->productService->uploadGallery($productId, $request);
     }
 
     public function removeImageFromGallery(int $imageId)
     {
-        $result=$this->productService->removeGalleryFromGallery($imageId);
-        if ($result){
-            return redirect()->back()->with('message','تصویر مورد نظر با موفقیت حذف گردید');
+        $result = $this->productService->removeGalleryFromGallery($imageId);
+        if ($result) {
+            return redirect()->back()->with('message', 'تصویر مورد نظر با موفقیت حذف گردید');
         }
+    }
 
+    public function sortImage(int $productId, Request $request)
+    {
+        $parameters = $request->get('parameters');
+        $parameters = explode(',', $parameters);
+        return $this->productService->sortGallery($parameters);
     }
 }

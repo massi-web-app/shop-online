@@ -79,6 +79,11 @@ function select_file() {
 }
 
 
+function select_file2() {
+    $("#mobile_image_url").click()
+}
+
+
 function loadFile(event) {
     const file_reader = new FileReader();
 
@@ -90,6 +95,17 @@ function loadFile(event) {
     file_reader.readAsDataURL(event.target.files[0]);
 }
 
+
+function loadFile2(event) {
+    const file_reader = new FileReader();
+
+    file_reader.onload = function () {
+        const output = document.getElementById("output_image2");
+        output.src = file_reader.result;
+    }
+
+    file_reader.readAsDataURL(event.target.files[0]);
+}
 
 function delete_row(url, token_form, message_text) {
 

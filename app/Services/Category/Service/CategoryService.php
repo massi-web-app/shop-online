@@ -18,6 +18,11 @@ class CategoryService
         $this->categoryRepository = $categoryRepository;
     }
 
+    public function find(int $categoryId)
+    {
+        return $this->categoryRepository->find($categoryId);
+    }
+
     public function store(array $data)
     {
         $this->categoryRepository->store($data);

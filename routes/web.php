@@ -29,6 +29,10 @@ Route::prefix('/admin')->group(function () {
 
     \App\Helper\Helper::generateCrudUrl('category', \App\Http\Controllers\Admin\CategoryController::class);
 
+    Route::get('/category/{id}/items',[\App\Http\Controllers\Admin\ItemController::class,'items'])->name('category.items');
+
+    Route::post('/category/{id}/items',[\App\Http\Controllers\Admin\ItemController::class,'add_item'])->name('category.items.add_item');
+
     //endregion route categories
 
     //region route brands
@@ -80,7 +84,6 @@ Route::prefix('/admin')->group(function () {
     ])->name('product.gallery.sort');
 
     //endregion
-
 
 
 

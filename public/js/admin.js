@@ -48,9 +48,9 @@ $(window).resize(function () {
 $(document).ready(function () {
     set_sidebar_width();
 
-    const url=window.location.href.split('?')[0];
+    const url = window.location.href.split('?')[0];
 
-    const tagSidebar=$(`#sidebar_menu a[href="${url}"]`);
+    const tagSidebar = $(`#sidebar_menu a[href="${url}"]`);
     tagSidebar.parent().parent().addClass('active');
     tagSidebar.parent().parent().find("a .fa-angle-left").addClass('fa-angle-down');
     tagSidebar.parent().parent().find("a .fa-angle-left").removeClass('fa-angle-left');
@@ -238,4 +238,34 @@ function add_tag() {
 
     document.getElementById('keywords').value = string;
     document.getElementById("tag_list").value = '';
+}
+
+
+function add_item_input() {
+
+
+    const id = document.getElementsByClassName("item_input").length + 1;
+
+    const html = `<div class="mb-3 item_groups align-items-center" id="item_-${id}">
+                    <div class="input-group align-items-center input-group-custom" >
+                       <input type="text" class="form-control form-control-admin item_input" name="item[-${id}]" placeholder="نام گروه ویژگی">
+                       <span class="fa fa-plus-circle" onclick="add_child_input(-${id})"></span>
+                    </div>
+
+                   <div class="child_item_box"></div>
+                </div>`;
+    $("#item_box").append(html);
+}
+
+
+function add_child_input(id) {
+
+    const child_count = document.getElementsByClassName("child_input_item").length + 1;
+    const counter = document.getElementsByClassName(`child_${id}`).length + 1;
+    const html = `<div class="item_child child_${id}">
+                    ${counter}- <input type="checkbox" name="check_box_item[${id}][-${child_count}]">
+                    <input type="text" name="child_input[${id}][-${child_count}]" class="form-control  form-control-admin child_input_item" placeholder="نام ویژگی" >
+                </div>`;
+
+    $(`#item_${id}`).find(".child_item_box").append(html);
 }

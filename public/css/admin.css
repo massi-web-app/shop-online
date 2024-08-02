@@ -576,3 +576,32 @@ table tr td {
     max-width: 100% !important;
 
 }
+
+
+
+.item_groups{
+    padding: 15px;
+    background: #f8fafc;
+    border-radius: 4px;
+}
+
+
+.input-group-custom{
+    width: 30% !important;
+}
+
+.item_child{
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.item_child input[type="checkbox"]{
+    margin-left: 5px;
+}
+
+
+.child_item_box input[type=checkbox]{
+    margin-left: 10px;
+    padding: 10px;
+}

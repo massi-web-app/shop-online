@@ -3,6 +3,7 @@
 namespace App\Repositories\Category;
 
 use App\Models\Item;
+use App\Models\Product;
 
 class ItemRepository implements ItemRepositoryInterface
 {
@@ -97,5 +98,11 @@ class ItemRepository implements ItemRepositoryInterface
     {
         $item=$this->find($itemId);
         $item->delete();
+    }
+
+    public function getItemProducts(array $categoryIds)
+    {
+        return Item::with('getChild')->where(['parent_id'=>null])->whereIn('category_id',$categoryIds)
+            ->orderBy('position','ASC')->get();
     }
 }

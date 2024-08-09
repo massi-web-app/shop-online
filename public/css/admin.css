@@ -621,3 +621,13 @@ table tr td {
     cursor: pointer;
     margin-right: 5px;
 }
+
+.form-group{
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.form-group > label{
+    width: 200px !important;
+}

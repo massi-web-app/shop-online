@@ -2,6 +2,7 @@
 
 namespace App\Services\Category\Service;
 
+use App\Models\Product;
 use App\Repositories\Category\ItemRepository;
 use Illuminate\Http\Request;
 
@@ -35,5 +36,10 @@ class ItemService
     public function removeItem(int $itemId)
     {
         $this->itemRepository->removeItem($itemId);
+    }
+
+    public function getItemProduct(array $categories)
+    {
+        return $this->itemRepository->getItemProducts($categories);
     }
 }

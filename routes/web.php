@@ -46,8 +46,14 @@ Route::prefix('/admin')->group(function () {
     //endregion route categories
 
     //region route products
-    \App\Helper\Helper::generateCrudUrl('product',
+    \App\Helper\Helper::generateCrudUrl('products',
         \App\Http\Controllers\Admin\ProductController::class, true);
+
+    Route::get('/products/{id}/items',[\App\Http\Controllers\Admin\ProductController::class,'items'])->name('products.show.items');
+
+
+    Route::post('/products/{id}/items',[\App\Http\Controllers\Admin\ProductController::class,'add_items'])->name('products.add.items');
+
     //endregion route categories
 
     //region route warranties

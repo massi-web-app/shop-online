@@ -4,7 +4,10 @@ namespace App\Services\Product\Service;
 
 use App\Helper\Helper;
 use App\Http\Requests\Product\ProductRequest;
+use App\Models\Product;
 use App\Repositories\Product\ProductRepository;
+use App\Services\Category\Service\CategoryService;
+use App\Services\Category\Service\ItemService;
 use App\Services\Uploader\Uploader;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -16,13 +19,17 @@ class ProductService
     private Uploader $uploader;
     private ProductRepository $productRepository;
     public static int $paginate = 10;
+    private CategoryService $categoryService;
+    private ItemService $itemService;
 
 
-    public function __construct(Uploader $uploader, ProductRepository $productRepository)
+    public function __construct(Uploader $uploader, ProductRepository $productRepository, CategoryService $categoryService, ItemService $itemService)
     {
 
         $this->uploader = $uploader;
         $this->productRepository = $productRepository;
+        $this->categoryService = $categoryService;
+        $this->itemService = $itemService;
     }
 
     public function list(Request $request)
@@ -164,7 +171,7 @@ class ProductService
 
     }
 
-    public function sortGallery(array $parameters):string
+    public function sortGallery(array $parameters): string
     {
         $position = 1;
         foreach ($parameters as $key => $parameter) {
@@ -174,6 +181,16 @@ class ProductService
             }
         }
         return 'ok';
+    }
+
+    public function getItems(Product|Collection $product): Collection|array
+    {
+        $category = $this->categoryService->find($product->category_id);
+        $category_ids[0] = $product->category_id;
+        if ($category) {
+            $category_ids[1] = $category->parent_id;
+        }
+        return $this->itemService->getItemProduct($category_ids);
     }
 
 

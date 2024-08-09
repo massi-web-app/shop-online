@@ -113,4 +113,9 @@ class ProductRepository implements ProductRepositoryInterface
         return ProductGallery::query()->findOrFail($imageId);
     }
 
+    public function getProductItems(int $productId)
+    {
+
+    }
+
 }

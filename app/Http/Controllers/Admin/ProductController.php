@@ -74,14 +74,14 @@ class ProductController extends CustomController
     public function update(ProductRequest $request, int $productId): RedirectResponse
     {
         $this->productService->update($request, $productId);
-        return redirect()->route('product.index')->with('message', 'محصول مورد نظر با موفقیت ویرایش شد.');
+        return redirect()->route('products.index')->with('message', 'محصول مورد نظر با موفقیت ویرایش شد.');
     }
 
     public function gallery(int $productId)
     {
         $galleries = $this->productService->listGalleries($productId);
         $product = $this->productService->find($productId);
-        return view('product.gallery', ['product' => $product, 'galleries' => $galleries]);
+        return view('products.gallery', ['product' => $product, 'galleries' => $galleries]);
 
     }
 
@@ -103,5 +103,17 @@ class ProductController extends CustomController
         $parameters = $request->get('parameters');
         $parameters = explode(',', $parameters);
         return $this->productService->sortGallery($parameters);
+    }
+
+    public function items(int $productId)
+    {
+        $product = $this->productService->find($productId);
+        $product_items = $this->productService->getItems($product);
+        return view('product.items', ['product_items' => $product_items, 'product' => $product]);
+    }
+
+    public function add_items()
+    {
+
     }
 }

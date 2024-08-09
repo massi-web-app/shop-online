@@ -3,8 +3,8 @@
 @section('content')
 
     @include('include.breadcrumb',['data'=>[
-            ['title'=>'مدیریت محصولات','route'=>route('product.index')],
-            ['title'=>'افزودن محصول جدید','route'=>route('product.create')],
+            ['title'=>'مدیریت محصولات','route'=>route('products.index')],
+            ['title'=>'افزودن محصول جدید','route'=>route('products.create')],
             ]])
 
     <div class="panel">
@@ -12,7 +12,7 @@
         <div class="header">افزودن محصول جدید</div>
 
         <div class="panel_content">
-            {!! Form::open(['url' => route('product.store'),'files'=>true]) !!}
+            {!! Form::open(['url' => route('products.store'),'files'=>true]) !!}
 
             <div class="mb-3 form-group">
                 {{ Form::label('title','نام محصول :',['class'=>'form-label form-label-admin '])}}

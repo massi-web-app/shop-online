@@ -7,8 +7,8 @@
             <span class="fa fa-angle-left"></span>
         </a>
         <div class="child_menu">
-            <a href="{{route('product.index')}}">مدیریت محصولات</a>
-            <a href="{{route('product.create')}}">افزودن محصول</a>
+            <a href="{{route('products.index')}}">مدیریت محصولات</a>
+            <a href="{{route('products.create')}}">افزودن محصول</a>
             <a href="{{route('category.index')}}">مدیریت دسته ها</a>
         </div>
     </li>

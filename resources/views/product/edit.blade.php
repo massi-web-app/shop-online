@@ -3,8 +3,8 @@
 @section('content')
 
     @include('include.breadcrumb',['data'=>[
-            ['title'=>'مدیریت محصولات','route'=>route('product.index')],
-            ['title'=>'ویرایش محصول ','route'=>route('product.edit',$product->id)],
+            ['title'=>'مدیریت محصولات','route'=>route('products.index')],
+            ['title'=>'ویرایش محصول ','route'=>route('products.edit',$product->id)],
             ]])
 
     <div class="panel">
@@ -12,7 +12,7 @@
         <div class="header">ویرایش محصول - {{$product->title}}</div>
 
         <div class="panel_content">
-            {!! Form::model($product,['url' => route('product.update',$product->id),'files'=>true]) !!}
+            {!! Form::model($product,['url' => route('products.update',$product->id),'files'=>true]) !!}
 
             {{method_field('put')}}
             <div class="mb-3 form-group">

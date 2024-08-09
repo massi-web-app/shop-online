@@ -3,7 +3,7 @@
 @section('content')
 
     @include('include.breadcrumb',['data'=>[
-    ['title'=>'مدیریت محصولات','route'=>route('product.index')]
+    ['title'=>'مدیریت محصولات','route'=>route('products.index')]
 ]])
 
     <div class="panel">
@@ -12,7 +12,7 @@
             <span class="title_page">مدیریت محصولات</span>
 
             @include('include.item_table',['trashed_count'=>$trashed_product_count,
-                       'route'=>'product','title'=>'محصول'])
+                       'route'=>'products','title'=>'محصول'])
         </div>
 
         <?php $counterRow = (isset($_GET['page'])) ? ($_GET['page'] - 1) * $paginate : 0 ?>
@@ -70,7 +70,7 @@
                             </td>
                             <td>
                                 @if(!$product->trashed())
-                                    <a href="{{route('product.edit',$product->id)}}">
+                                    <a href="{{route('products.edit',$product->id)}}">
                                         <span data-bs-toggle="tooltip" data-bs-placement="right"
                                               title="ویرایش محصول" class="fa fa-edit"></span>
                                     </a>
@@ -79,18 +79,18 @@
                                 @if($product->trashed())
                                     <span class="fa fa-refresh"
                                           data-bs-toggle="tooltip" data-bs-placement="right" title="بازیابی محصول"
-                                          onclick="restore_row('{{route('product.destroy',$product->id)}}','{{\Illuminate\Support\Facades\Session::token()}}','آیا از بازیابی این محصول مطئمن هستید؟')"></span>
+                                          onclick="restore_row('{{route('products.destroy',$product->id)}}','{{\Illuminate\Support\Facades\Session::token()}}','آیا از بازیابی این محصول مطئمن هستید؟')"></span>
                                 @endif
 
                                 @if(!$product->trashed())
 
                                     <span class="fa fa-remove"
                                           data-bs-toggle="tooltip" data-bs-placement="right" title="حذف محصول"
-                                          onclick="delete_row('{{route('product.destroy',$product->id)}}','{{\Illuminate\Support\Facades\Session::token()}}','آیا از حذف این محصول برای انتقال به سطل زباله مطئمن هستید؟')"></span>
+                                          onclick="delete_row('{{route('products.destroy',$product->id)}}','{{\Illuminate\Support\Facades\Session::token()}}','آیا از حذف این محصول برای انتقال به سطل زباله مطئمن هستید؟')"></span>
                                 @else
                                     <span class="fa fa-remove"
                                           data-bs-toggle="tooltip" data-bs-placement="right" title="حذف محصول"
-                                          onclick="delete_row('{{route('product.destroy',$product->id)}}','{{\Illuminate\Support\Facades\Session::token()}}','آیا از حذف این محصول برای همیشه مطئمن هستید؟')"></span>
+                                          onclick="delete_row('{{route('products.destroy',$product->id)}}','{{\Illuminate\Support\Facades\Session::token()}}','آیا از حذف این محصول برای همیشه مطئمن هستید؟')"></span>
                                 @endif
                             </td>
                         </tr>

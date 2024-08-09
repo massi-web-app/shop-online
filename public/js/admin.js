@@ -247,8 +247,8 @@ function add_item_input() {
     const id = document.getElementsByClassName("item_input").length + 1;
 
     const html = `<div class="mb-3 item_groups align-items-center" id="item_-${id}">
-                    <div class="input-group align-items-center input-group-custom" >
-                       <input type="text" class="form-control form-control-admin item_input" name="item[-${id}]" placeholder="نام گروه ویژگی">
+                    <div class="align-items-center input-group-custom" >
+                       <input type="text" style="display: inline-block" class="form-control form-control-admin item_input" name="item[-${id}]" placeholder="نام گروه ویژگی">
                        <span class="fa fa-plus-circle" onclick="add_child_input(-${id})"></span>
                     </div>
 
@@ -264,7 +264,7 @@ function add_child_input(id) {
     const counter = document.getElementsByClassName(`child_${id}`).length + 1;
     const html = `<div class="item_child child_${id}">
                     ${counter}- <input type="checkbox" name="check_box_item[${id}][-${child_count}]">
-                    <input type="text" name="child_input[${id}][-${child_count}]" class="form-control  form-control-admin child_input_item" placeholder="نام ویژگی" >
+                    <input type="text" name="child_item[${id}][-${child_count}]" class="form-control  form-control-admin child_input_item" placeholder="نام ویژگی" >
                 </div>`;
 
     $(`#item_${id}`).find(".child_item_box").append(html);

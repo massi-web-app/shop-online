@@ -15,5 +15,12 @@ class Item extends Model
     protected $fillable=['category_id','title','position','item_important','parent_id'];
     //endregion
 
+    //region relations
+    public function getChild()
+    {
+        return $this->hasMany(Item::class,'parent_id','id')->orderBy('position','ASC');
+    }
+    //endregion
+
 
 }

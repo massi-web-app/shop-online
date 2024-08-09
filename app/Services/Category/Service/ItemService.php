@@ -26,4 +26,14 @@ class ItemService
         $this->itemRepository->addItem($category_id,$items,$child_item,$check_box);
 
     }
+
+    public function getItems(int $categoryId)
+    {
+        return $this->itemRepository->getItems($categoryId);
+    }
+
+    public function removeItem(int $itemId)
+    {
+        $this->itemRepository->removeItem($itemId);
+    }
 }

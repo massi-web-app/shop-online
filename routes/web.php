@@ -33,6 +33,7 @@ Route::prefix('/admin')->group(function () {
 
     Route::post('/category/{id}/items',[\App\Http\Controllers\Admin\ItemController::class,'add_item'])->name('category.items.add_item');
 
+    Route::delete('/category/remove_items/{id}',[\App\Http\Controllers\Admin\ItemController::class,'remove_item'])->name('category.items.remove_item');
     //endregion route categories
 
     //region route brands

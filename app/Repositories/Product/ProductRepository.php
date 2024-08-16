@@ -2,11 +2,13 @@
 
 namespace App\Repositories\Product;
 
+use App\Models\ItemValue;
 use App\Models\Product;
 use App\Models\ProductColor;
 use App\Models\ProductGallery;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class ProductRepository implements ProductRepositoryInterface
 {
@@ -112,10 +114,4 @@ class ProductRepository implements ProductRepositoryInterface
     {
         return ProductGallery::query()->findOrFail($imageId);
     }
-
-    public function getProductItems(int $productId)
-    {
-
-    }
-
 }

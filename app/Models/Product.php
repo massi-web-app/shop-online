@@ -61,7 +61,9 @@ class Product extends Model
         static::deleting(function ($product){
             if ($product->isForceDeleting()){
                 Helper::removeFile('files/products',$product);
-
+                ItemValue::query()->where([
+                    'product_id'=>$product->id
+                ])->delete();
             }
         });
 

@@ -3,7 +3,11 @@
 namespace App\Repositories\Category;
 
 use App\Models\Item;
+use App\Models\ItemValue;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 class ItemRepository implements ItemRepositoryInterface
 {
@@ -88,7 +92,7 @@ class ItemRepository implements ItemRepositoryInterface
 
     public function getItems(int $categoryId)
     {
-        return Item::with(['getChild'])->where([
+        return Item::with(['getChild.getValue'])->where([
             'category_id' => $categoryId,
             'parent_id' => null
         ])->orderBy('position', 'asc')->get();
@@ -104,5 +108,19 @@ class ItemRepository implements ItemRepositoryInterface
     {
         return Item::with('getChild')->where(['parent_id'=>null])->whereIn('category_id',$categoryIds)
             ->orderBy('position','ASC')->get();
+    }
+
+    public function clear_product_value(Model|Collection $product)
+    {
+        ItemValue::query()->where(['product_id'=>$product->id])->delete();
+    }
+
+    public function add_item_value_to_product(Model|Collection $product, int|string $item_id, mixed $item_value)
+    {
+        ItemValue::query()->create([
+            'product_id'=>$product->id,
+            'item_id'=>$item_id,
+            'value'=>$item_value
+        ]);
     }
 }

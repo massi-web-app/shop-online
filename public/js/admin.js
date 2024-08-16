@@ -269,3 +269,41 @@ function add_child_input(id) {
 
     $(`#item_${id}`).find(".child_item_box").append(html);
 }
+
+
+function add_item_value_input(child_item_id) {
+
+    const html = `
+       <div class="form-group">
+        <label for="title"></label>
+         <input type="text" name="item_value[${child_item_id}][]" class="form-control form-control-admin" id="title" >
+       </div>
+    `;
+    $(`#input_item_box_${child_item_id}`).append(html);
+}
+
+
+function add_filter_input() {
+    const id = document.getElementsByClassName('filter_input').length + 1;
+    const html = `
+        <div class="mb-3 item_groups" id="filter_-${id}">
+            <div class="form-group" >
+                <input type="text" class="form-control form-control-admin filter_input" name="filter[-${id}]" placeholder="نام گروه فیلتر ">
+                <span class="fa fa-plus-circle m-1" onclick="add_filter_child(-${id})"></span>
+            </div>
+            <div class="child_filter_box"></div>
+        </div>
+    `;
+    $("#filter_box").append(html);
+}
+
+
+function add_filter_child(id){
+    const child_count = document.getElementsByClassName("child_input_filter").length + 1;
+    const counter = document.getElementsByClassName(`child_${id}`).length + 1;
+    const html = `<div class="item_child child_${id}">
+                    ${counter} - <input type="text" name="child_filter[${id}][-${child_count}]" class="form-control  form-control-admin child_input_filter" placeholder="نام فیلتر" >
+                </div>`;
+
+    $(`#filter_${id}`).find(".child_filter_box").append(html);
+}

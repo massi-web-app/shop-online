@@ -9,7 +9,9 @@ use App\Repositories\Product\ProductRepository;
 use App\Services\Category\Service\CategoryService;
 use App\Services\Category\Service\ItemService;
 use App\Services\Uploader\Uploader;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -185,12 +187,27 @@ class ProductService
 
     public function getItems(Product|Collection $product): Collection|array
     {
+        define('product_id',$product->id);
         $category = $this->categoryService->find($product->category_id);
         $category_ids[0] = $product->category_id;
         if ($category) {
             $category_ids[1] = $category->parent_id;
         }
         return $this->itemService->getItemProduct($category_ids);
+    }
+
+    public function add_items(Model|Collection|Builder|array|null $product, array $data)
+    {
+        $this->itemService->clear_value_items($product);
+        foreach ($data as $item_id=>$value){
+            foreach ($value as $key2=>$item_value){
+                if (!empty($item_value)){
+                    $this->itemService->add_item_value_to_product($product,$item_id,$item_value);
+                }
+            }
+        }
+
+
     }
 
 

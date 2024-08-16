@@ -20,6 +20,12 @@ class Item extends Model
     {
         return $this->hasMany(Item::class,'parent_id','id')->orderBy('position','ASC');
     }
+
+    public function getValue()
+    {
+        return $this->hasMany(ItemValue::class,'item_id','id')
+            ->where('product_id',product_id);
+    }
     //endregion
 
 

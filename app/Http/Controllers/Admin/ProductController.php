@@ -112,8 +112,11 @@ class ProductController extends CustomController
         return view('product.items', ['product_items' => $product_items, 'product' => $product]);
     }
 
-    public function add_items()
+    public function add_items(int $productId,Request $request)
     {
-
+        $data=$request->get('item_value');
+        $product=$this->productService->find($productId);
+        $this->productService->add_items($product,$data);
+        return redirect()->back()->with('message','ثبت مشخصات فنی برای محصول انجام شد.');
     }
 }

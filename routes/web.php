@@ -29,11 +29,14 @@ Route::prefix('/admin')->group(function () {
 
     \App\Helper\Helper::generateCrudUrl('category', \App\Http\Controllers\Admin\CategoryController::class);
 
+
+    //region route items
     Route::get('/category/{id}/items',[\App\Http\Controllers\Admin\ItemController::class,'items'])->name('category.items');
 
     Route::post('/category/{id}/items',[\App\Http\Controllers\Admin\ItemController::class,'add_item'])->name('category.items.add_item');
 
     Route::delete('/category/remove_items/{id}',[\App\Http\Controllers\Admin\ItemController::class,'remove_item'])->name('category.items.remove_item');
+    //region route items
     //endregion route categories
 
     //region route brands
@@ -89,6 +92,17 @@ Route::prefix('/admin')->group(function () {
         \App\Http\Controllers\Admin\ProductController::class,
         'sortImage',
     ])->name('product.gallery.sort');
+
+    //endregion
+
+
+    //region route for filters
+
+    Route::get('/category/{id}/filters',[\App\Http\Controllers\Admin\FilterController::class,'filters'])->name('category.filters');
+
+    Route::post('/category/{id}/filters',[\App\Http\Controllers\Admin\FilterController::class,'add_filter'])->name('category.filters.add_item');
+
+    Route::delete('/category/remove_filters/{id}',[\App\Http\Controllers\Admin\FilterController::class,'remove_filter'])->name('category.filters.remove_item');
 
     //endregion
 

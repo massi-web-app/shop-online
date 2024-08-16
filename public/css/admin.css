@@ -631,3 +631,9 @@ table tr td {
 .form-group > label{
     width: 200px !important;
 }
+
+
+#product_items_form .form-control.form-control-admin{
+    width: calc(100% - 240px) !important;
+
+}

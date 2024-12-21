@@ -4,7 +4,6 @@ namespace App\Helper;
 
 use App\Lib\Jdf;
 use App\Services\Uploader\Uploader;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Spatie\Image\Image;
 
@@ -66,10 +65,23 @@ class Helper
         return false;
     }
 
-    public static function removeFile($directory,$image_url)
+    public static function removeFile($directory, $image_url)
     {
         $uploader = new Uploader();
         $uploader->removeFile($directory, $image_url);
+    }
+
+    public static function is_selected_filter($list, $filter_id)
+    {
+        $result = false;
+        foreach ($list as $key => $value) {
+            if ($value->filter_value === $filter_id) {
+                $result = true;
+            }
+        }
+
+        return $result;
+
     }
 
 }

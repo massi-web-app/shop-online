@@ -24,9 +24,9 @@ class FilterService
         return $this->filterRepository->list($category);
     }
 
-    public function addFilter(Collection|Model $category, array $child_filter, array $filter)
+    public function addFilter(Collection|Model $category, array $child_filter, array $filter,$filer_value)
     {
-        $this->filterRepository->addFilter($category,$child_filter,$filter);
+        $this->filterRepository->addFilter($category,$child_filter,$filter,$filer_value);
 
     }
 

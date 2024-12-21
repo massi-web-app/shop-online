@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\CustomController;
 use App\Http\Requests\Product\ProductRequest;
+use App\Models\Product;
+use App\Models\ProductFilters;
 use App\Repositories\Brand\BrandRepository;
 use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Color\ColorRepository;
@@ -108,15 +110,50 @@ class ProductController extends CustomController
     public function items(int $productId)
     {
         $product = $this->productService->find($productId);
+        define('product_id',$product->id);
         $product_items = $this->productService->getItems($product);
         return view('product.items', ['product_items' => $product_items, 'product' => $product]);
     }
 
-    public function add_items(int $productId,Request $request)
+    public function add_items(int $productId, Request $request)
     {
-        $data=$request->get('item_value');
-        $product=$this->productService->find($productId);
-        $this->productService->add_items($product,$data);
-        return redirect()->back()->with('message','ثبت مشخصات فنی برای محصول انجام شد.');
+        define('product_id',$productId);
+        $data = $request->get('item_value');
+        $product = $this->productService->find($productId);
+        $this->productService->add_items($product, $data);
+        return redirect()->back()->with('message', 'ثبت مشخصات فنی برای محصول انجام شد.');
     }
+
+
+    public function filters(int $productId)
+    {
+        $product = $this->productService->find($productId);
+        $product_filters = $this->productService->getFilters($product);
+        return view('product.filters', ['product_filters' => $product_filters, 'product' => $product]);
+
+    }
+
+    public function add_filters(int $product_id, Request $request)
+    {
+        $product = Product::query()->where('id', $product_id)->select(['id', 'title', 'category_id'])->first();
+        $filters = $request->get('filters');
+        ProductFilters::query()->where(['product_id' => $product_id])->delete();
+
+        if (is_array($filters)) {
+            foreach ($filters as $key => $value) {
+                if (is_array($value)) {
+                    foreach ($value as $key2 => $value2) {
+                        ProductFilters::query()->create([
+                            'product_id' => $product->id,
+                            'filter_id' => $key,
+                            'filter_value' => $value2
+                        ]);
+                    }
+                }
+            }
+        }
+
+        return redirect()->back()->with('message', 'ثبت مشخصات فیلتر برای محصول انجام شد.');
+    }
+
 }

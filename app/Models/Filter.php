@@ -22,6 +22,12 @@ class Filter extends Model
             ->orderBy('position','ASC');
     }
 
+    public function getValue()
+    {
+        return $this->hasMany(ProductFilters::class,'filter_id','id')
+            ->where('product_id',product_id);
+    }
+
     //endregion
 
 

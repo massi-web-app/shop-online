@@ -16,7 +16,6 @@ class ItemController extends Controller
 
     public function __construct(CategoryService $categoryService, ItemService $itemService)
     {
-
         $this->categoryService = $categoryService;
         $this->itemService = $itemService;
     }

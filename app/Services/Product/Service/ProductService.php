@@ -4,6 +4,8 @@ namespace App\Services\Product\Service;
 
 use App\Helper\Helper;
 use App\Http\Requests\Product\ProductRequest;
+use App\Models\Filter;
+use App\Models\Item;
 use App\Models\Product;
 use App\Repositories\Product\ProductRepository;
 use App\Services\Category\Service\CategoryService;
@@ -187,13 +189,25 @@ class ProductService
 
     public function getItems(Product|Collection $product): Collection|array
     {
-        define('product_id',$product->id);
         $category = $this->categoryService->find($product->category_id);
         $category_ids[0] = $product->category_id;
         if ($category) {
             $category_ids[1] = $category->parent_id;
         }
         return $this->itemService->getItemProduct($category_ids);
+    }
+
+    public function getFilters(Product|Collection $product): Collection|array
+    {
+        define('product_id',$product->id);
+        $category = $this->categoryService->find($product->category_id);
+        $category_ids[0] = $product->category_id;
+        if ($category) {
+            $category_ids[1] = $category->parent_id;
+        }
+       return Filter::with(['getChild','getValue'])->where(['parent_id'=>null])->whereIn('category_id',$category_ids)
+            ->orderBy('position','ASC')->get();
+
     }
 
     public function add_items(Model|Collection|Builder|array|null $product, array $data)

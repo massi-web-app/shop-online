@@ -9,8 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 interface FilterInterface
 {
-    public function items(Category|Model $category): Filter|Model;
 
-    public function addFilter(Collection|Model $category, array $child_filter, array $filter);
+    public function addFilter(Collection|Model $category, array $child_filter, array $filter,$item_value);
 
 }

@@ -55,4 +55,10 @@ class ItemService
     {
         $this->itemRepository->add_item_value_to_product($product,$item_id,$item_value);
     }
+
+    public function getCategoryItem(int $categoryId)
+    {
+        return $this->itemRepository->getCategoryItem($categoryId);
+
+    }
 }

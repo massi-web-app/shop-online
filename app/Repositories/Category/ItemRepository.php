@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Category;
 
+use App\Models\Category;
 use App\Models\Item;
 use App\Models\ItemValue;
 use App\Models\Product;
@@ -92,7 +93,7 @@ class ItemRepository implements ItemRepositoryInterface
 
     public function getItems(int $categoryId)
     {
-        return Item::with(['getChild.getValue'])->where([
+        return Item::with(['getChild'])->where([
             'category_id' => $categoryId,
             'parent_id' => null
         ])->orderBy('position', 'asc')->get();
@@ -122,5 +123,18 @@ class ItemRepository implements ItemRepositoryInterface
             'item_id'=>$item_id,
             'value'=>$item_value
         ]);
+    }
+
+    public function getCategoryItem(int $categoryId)
+    {
+        $category = Category::query()->find($categoryId);
+        $cate_id[0] = $categoryId;
+        if ($category) {
+            $cate_id[1] = $category->parent_id;
+        }
+        $items=Item::with(['getChild'])->where(['parent_id'=>null])
+            ->whereIn('category_id',$cate_id)
+            ->orderBy('position','ASC')->get();
+        return $items;
     }
 }

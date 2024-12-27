@@ -27,10 +27,11 @@ a {
     text-decoration: none !important;
 }
 
-input[type="checkbox"]{
+input[type="checkbox"] {
     margin-left: 5px;
 }
-.btn{
+
+.btn {
     font-size: 12px !important;
 }
 
@@ -163,6 +164,7 @@ option {
 
 .form-group {
     display: flex;
+    flex-wrap: wrap;
     /*align-items: center;*/
 }
 
@@ -574,73 +576,108 @@ table tr td {
 }
 
 
-.ui-sortable-helper{
+.ui-sortable-helper {
     display: table !important;
 }
 
 
-.slider_img{
+.slider_img {
     max-width: 100% !important;
 
 }
 
 
-
-.item_groups{
+.item_groups {
     padding: 15px;
     background: #f8fafc;
     border-radius: 4px;
 }
 
 
-.input-group-custom{
+.input-group-custom {
     width: 30% !important;
 }
 
-.item_child{
+.item_child {
     display: flex;
     align-items: center;
     margin-top: 5px;
 }
 
-.item_child input[type="checkbox"]{
+.item_child input[type="checkbox"] {
     margin-left: 5px;
 }
 
 
-.child_item_box input[type=checkbox]{
+.child_item_box input[type=checkbox] {
     margin-left: 10px;
     padding: 10px;
 }
 
-.item_remove_message{
+.item_remove_message {
     float: left;
-    color:red;
+    color: red;
     font-size: 13px;
     cursor: pointer;
 }
 
 
-
-.child_item_remove_message{
-    color:red;
+.child_item_remove_message {
+    color: red;
     font-size: 13px;
     cursor: pointer;
     margin-right: 5px;
 }
 
-.form-group{
+.form-group {
     margin-bottom: 10px;
     display: flex;
     align-items: center;
 }
 
-.form-group > label{
+.form-group > label {
     width: 200px !important;
 }
 
 
-#product_items_form .form-control.form-control-admin{
+#product_items_form .form-control.form-control-admin {
     width: calc(100% - 240px) !important;
 
+}
+
+.item_filter_box {
+    width: calc(95% - 180px) !important;
+    margin-right:200px;
+    z-index: 10;
+    position: relative;
+    background: #fff;
+    transition: all .4s ease-in-out;
+
+}
+
+.item_filter_box ul {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    background: #fff;
+    width: 100%;
+    border:1px solid #ccc;
+    border-radius: 5px;
+    overflow-y: auto;
+    max-height: 300px;
+    display: none;
+
+
+}
+
+.item_filter_box ul  li {
+    list-style: none;
+    padding: 10px;
+    border:1px solid #ccc;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.show_filter_box{
+    cursor: pointer;
 }

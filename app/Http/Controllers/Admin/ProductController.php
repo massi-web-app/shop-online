@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\CustomController;
 use App\Http\Requests\Product\ProductRequest;
+use App\Models\Filter;
+use App\Models\Item;
 use App\Models\Product;
 use App\Models\ProductFilters;
 use App\Repositories\Brand\BrandRepository;
@@ -110,17 +112,20 @@ class ProductController extends CustomController
     public function items(int $productId)
     {
         $product = $this->productService->find($productId);
-        define('product_id',$product->id);
-        $product_items = $this->productService->getItems($product);
-        return view('product.items', ['product_items' => $product_items, 'product' => $product]);
+        $data = Item::getProductItemWithFilter($product);
+        $product_items=$data['items'];
+        $filters=$data['filters'];
+        $product_filters=ProductFilters::query()->where('product_id',$product->id)->pluck('filter_id','filter_value')->toArray();
+        return view('product.items', ['product_items' => $product_items, 'product' => $product,'filters'=>$filters,'product_filters'=>$product_filters]);
     }
 
     public function add_items(int $productId, Request $request)
     {
         define('product_id',$productId);
         $data = $request->get('item_value');
+        $filter_value=$request->get('filter_value');
         $product = $this->productService->find($productId);
-        $this->productService->add_items($product, $data);
+        $this->productService->add_items($product, $data,$filter_value);
         return redirect()->back()->with('message', 'ثبت مشخصات فنی برای محصول انجام شد.');
     }
 
@@ -155,5 +160,6 @@ class ProductController extends CustomController
 
         return redirect()->back()->with('message', 'ثبت مشخصات فیلتر برای محصول انجام شد.');
     }
+
 
 }

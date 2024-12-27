@@ -84,4 +84,31 @@ class Helper
 
     }
 
+    public static function getFilterArray($filters)
+    {
+        $array = [];
+
+        foreach ($filters as $key => $value) {
+            $array[$value->item_id] = $key;
+        }
+
+        return $array;
+    }
+
+    public static function getFilterValue(mixed $filter_id, $product_filters)
+    {
+        $value='';
+
+        foreach ($product_filters as $key=>$value){
+
+            if ($value==$filter_id){
+                $value.='@'.$key;
+            }
+        }
+
+
+        return $value;
+        dd($filter_id,$product_filters);
+    }
+
 }

@@ -37,7 +37,7 @@ class FilterController extends Controller
         $category = $this->categoryService->find($categoryId);
         $filter = $request->get('filter', []);
         $item_value=$request->get('item_id',[]);
-        $child_filter = $request->get('child_filter', []);
+        $child_filter = $request->get('child_item', []);
         $this->filterService->addFilter($category, $child_filter, $filter,$item_value);
         return redirect()->back()->with('message', 'ثبت فیلتر ها با موفقیت انجام شد');
     }

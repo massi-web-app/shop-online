@@ -205,12 +205,14 @@ class ProductService
         if ($category) {
             $category_ids[1] = $category->parent_id;
         }
+
+
        return Filter::with(['getChild','getValue'])->where(['parent_id'=>null])->whereIn('category_id',$category_ids)
             ->orderBy('position','ASC')->get();
 
     }
 
-    public function add_items(Model|Collection|Builder|array|null $product, array $data)
+    public function add_items(Model|Collection|Builder|array|null $product, array $data,$filter_value)
     {
         $this->itemService->clear_value_items($product);
         foreach ($data as $item_id=>$value){
@@ -219,6 +221,7 @@ class ProductService
                     $this->itemService->add_item_value_to_product($product,$item_id,$item_value);
                 }
             }
+            Item::addFilter($item_id,$filter_value,$product->id);
         }
 
 

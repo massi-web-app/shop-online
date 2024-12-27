@@ -26,8 +26,7 @@
                             <p class="title">{{$value_product_filter->title}}</p>
                             @foreach($value_product_filter->getChild as $key_child_item=>$child_value_filter)
                              <div class="form-group">
-                                 <input type="checkbox"
-
+                                  <input type="checkbox"
 
                                         @if(\App\Helper\Helper::is_selected_filter($value_product_filter->getValue,$child_value_filter->id)) checked="checked" @endif
                                         name="filters[{{$value_product_filter->id}}][]" value="{{$child_value_filter->id}}">
